@@ -1,0 +1,107 @@
+:root {
+  /* Luxurious Metallic Blue & Emerald Wedding Palette */
+  --color-dark: #1a365d;           /* Deep sophisticated metallic blue */
+  --color-dark-hover: #0f172a;     /* Deeper navy for hover states */
+  --color-sage: #064e3b;           /* Rich deep emerald - luxurious accent */
+  --color-peach: #F9F3EF;          /* Warm ivory - elegant background */
+  --color-offwhite: #F9F3EF;       /* Same as peach for consistency */
+
+  /* Metallic & Emerald Luxury Accents */
+  --color-gold: #60a5fa;           /* Soft elegant metallic blue */
+  --color-gold-light: #93c5fd;     /* Lighter elegant metallic */
+  --color-emerald: #047857;        /* Medium emerald for balance */
+  --color-emerald-light: #10b981;  /* Bright emerald accent */
+  --color-metallic: #3b82f6;       /* Refined metallic blue accent */
+
+  /* Additional derived colors for harmony */
+  --color-accent: #064e3b;         /* Deep emerald accent */
+  --color-light: #F9F3EF;          /* Light background */
+  --color-secondary: #60a5fa;      /* Soft metallic secondary */
+  --color-tertiary: #93c5fd;       /* Light metallic tertiary */
+
+  font-family: 'Great Vibes', 'Italiana', cursive;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: var(--color-dark);
+  background-color: var(--color-offwhite);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Georgia', serif;
+  scroll-behavior: smooth;
+  background-color: var(--color-offwhite);
+  color: var(--color-dark);
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 300;
+  font-family: 'Great Vibes', cursive;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-sage);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-dark);
+}
+
+button {
+  background: var(--color-sage);
+  color: var(--color-offwhite);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: var(--color-dark);
+}
+
+input, select, textarea {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid var(--color-sage);
+  border-radius: 5px;
+  width: 100%;
+  font-family: inherit;
+  background: var(--color-offwhite);
+  color: var(--color-dark);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-dark);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
