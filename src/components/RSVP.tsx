@@ -53,7 +53,7 @@ const RSVP = ({ guest }: RSVPProps) => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
             className="rsvp-success-header"
           >
             <div className="success-icon">
@@ -68,7 +68,7 @@ const RSVP = ({ guest }: RSVPProps) => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="rsvp-success-message"
           >
             RSVP Anda telah berhasil dikirim.
@@ -77,7 +77,7 @@ const RSVP = ({ guest }: RSVPProps) => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="rsvp-summary"
           >
             <div className="summary-item">
@@ -124,20 +124,20 @@ const RSVP = ({ guest }: RSVPProps) => {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.05 }}
           className="rsvp-container"
         >
           {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="rsvp-header"
           >
             <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.6, type: "spring" }}
+              transition={{ duration: 0.4, delay: 0.15, type: "spring" }}
               className="header-icon-wrapper"
             >
               <div className="header-main-icon">
@@ -150,7 +150,7 @@ const RSVP = ({ guest }: RSVPProps) => {
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               className="rsvp-title"
             >
               RSVP
@@ -159,7 +159,7 @@ const RSVP = ({ guest }: RSVPProps) => {
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 1 }}
+              transition={{ duration: 0.5, delay: 0.25 }}
               className="header-divider"
             >
               <div className="divider-line"></div>
@@ -172,14 +172,14 @@ const RSVP = ({ guest }: RSVPProps) => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="rsvp-card"
           >
             {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.4 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
               className="rsvp-description"
             >
               Dengan senang hati kami mengundang Anda untuk menjadi bagian dari hari spesial kami
@@ -191,14 +191,14 @@ const RSVP = ({ guest }: RSVPProps) => {
                 onSubmit={handleSubmit}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.6 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
                 className="rsvp-form"
               >
                 {/* Guest Name Display */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 1.8 }}
+                  transition={{ duration: 0.4, delay: 0.45 }}
                   className="form-field"
                 >
                   <label className="field-label">
@@ -212,7 +212,7 @@ const RSVP = ({ guest }: RSVPProps) => {
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 2 }}
+                  transition={{ duration: 0.4, delay: 0.5 }}
                   className="form-field"
                 >
                   <label className="field-label">
@@ -234,7 +234,7 @@ const RSVP = ({ guest }: RSVPProps) => {
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 2.2 }}
+                  transition={{ duration: 0.4, delay: 0.55 }}
                   className="form-field"
                 >
                   <label className="field-label">
@@ -259,7 +259,7 @@ const RSVP = ({ guest }: RSVPProps) => {
                   whileTap={{ scale: 0.98 }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 2.4 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
                 >
                   <FaPaperPlane className="button-icon" />
                   <span>{isSubmitting ? 'Mengirim...' : 'Kirim Konfirmasi'}</span>
@@ -269,7 +269,7 @@ const RSVP = ({ guest }: RSVPProps) => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 1.6 }}
+                transition={{ duration: 0.5, delay: 0.45 }}
                 className="rsvp-placeholder"
               >
                 <FaEnvelope className="placeholder-icon" />

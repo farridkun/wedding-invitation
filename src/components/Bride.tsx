@@ -13,13 +13,13 @@ const Bride = () => {
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.05 }}
           className="bride-content"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="image-with-gradient"
           >
             <ImageSlider
@@ -36,10 +36,10 @@ const Bride = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
           >
             <h2 className="mb-2">The Bride</h2>
-            <h3>Avni Cahyaning Asih</h3>
+            <h3 className="mt-4">Avni Cahyaning Asih</h3>
             <p>Putri dari Bapak Surachman Paryana Apvip & Ibu Nia Kurniasari</p>
             <a href="https://instagram.com/avcahy_" target="_blank" rel="noopener noreferrer" className="instagram-button">
               @avcahy_

@@ -26,13 +26,13 @@ const LoveStory = () => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
             className="story-header"
           >
             <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
+              transition={{ duration: 0.5, delay: 0.1, type: "spring" }}
               className="header-icon-wrapper"
             >
               <div className="header-main-icon">
@@ -42,19 +42,28 @@ const LoveStory = () => {
               <div className="icon-ring ring-2"></div>
             </motion.div>
 
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="story-title-head"
+            >
+              Love Story of
+            </motion.h3>
+            
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               className="story-title"
             >
-              Love Story of Avni & Dea
+              Avni & Dea
             </motion.h2>
 
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               className="header-divider"
             >
               <div className="divider-line"></div>
@@ -67,7 +76,7 @@ const LoveStory = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 1 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
             className="story-slider-container"
           >
             <ImageSlider
@@ -81,7 +90,7 @@ const LoveStory = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="story-timeline"
           >
             <div className="timeline-item">
@@ -119,7 +128,7 @@ const LoveStory = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
             className="story-conclusion"
           >
             <div className="conclusion-card">
@@ -133,7 +142,7 @@ const LoveStory = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1.6 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             className="story-connector"
           >
             <div className="connector-line"></div>

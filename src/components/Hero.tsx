@@ -44,7 +44,7 @@ const Hero = ({ guest }: HeroProps) => {
           transition={{ duration: 1 }}
         >
           <h1>
-            <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem' }}>The Wedding of</span>
+            <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem', color: '#fff' }}>The Wedding of</span>
             <span style={{ fontSize: '3rem', display: 'block' }}>Avni & Dea</span>
           </h1>
           <p>Assalamu'alaikum Warahmatullahi Wabarakatuh</p>

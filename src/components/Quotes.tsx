@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 const Quotes = () => {
   return (
     <section id="quotes" className="quotes">
-      <Parallax speed={40}>
+      <Parallax speed={20}>
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.05 }}
           className="quotes-content"
         >
           <blockquote>

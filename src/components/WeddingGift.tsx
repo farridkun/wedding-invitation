@@ -19,7 +19,7 @@ const WeddingGift = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
             className="gift-header"
           >
             <div className="gift-icon">
@@ -34,7 +34,7 @@ const WeddingGift = () => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="gift-description"
           >
             Doa restu Anda merupakan karunia terindah bagi kami. Namun jika Anda ingin memberikan hadiah, kami sangat berterima kasih atas perhatiannya.
@@ -43,7 +43,7 @@ const WeddingGift = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="gift-options"
           >
             <div className="gift-option">

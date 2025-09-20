@@ -46,8 +46,8 @@ const Resepsi = () => {
               </div>
               <div className="detail-content">
                 <span className="detail-label">Tanggal</span>
-                <span className="detail-value">5 November 2025</span>
-                <span className="detail-sub">Rabu</span>
+                <span className="detail-value">9 November 2025</span>
+                <span className="detail-sub">Minggu</span>
               </div>
             </div>
 
@@ -68,7 +68,7 @@ const Resepsi = () => {
               </div>
               <div className="detail-content">
                 <span className="detail-label">Tempat</span>
-                <span className="detail-value">Jl. Moch. Toha No.77</span>
+                <span className="detail-value">PT Inti Persero - Jl. Moch. Toha No.77</span>
                 <span className="detail-sub">Cigereleng, Kec. Regol, Kota Bandung</span>
               </div>
             </div>

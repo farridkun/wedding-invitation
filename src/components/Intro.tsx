@@ -42,6 +42,9 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
       >
         <div className="intro-decoration-top"></div>
         <motion.h3
+          style={{
+            color: '#fff',
+          }}
           className="mb-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -50,6 +53,9 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           The Wedding of
         </motion.h3>
         <motion.h1
+          style={{
+            color: '#fff',
+          }}
           className="font-weight-bold"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -59,6 +65,9 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
         </motion.h1>
         <div className="intro-decoration-middle"></div>
         <motion.p
+          style={{
+            color: '#fff',
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.5 }}
@@ -66,7 +75,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           Kepada Yth Bapak/Ibu/Saudara/i:
         </motion.p>
         <motion.p
-          style={{ fontSize: '1.4rem', fontWeight: '500' }}
+          style={{ fontSize: '1.4rem', fontWeight: '500', color: '#fff' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.5 }}
@@ -80,7 +89,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           transition={{ duration: 0.6, delay: 1.8, ease: "easeOut" }}
         >
           <Button onClick={handleOpen} className="open-button">
-            Buka Undangan
+            <span>Buka Undangan</span>
           </Button>
         </motion.div>
       </motion.div>

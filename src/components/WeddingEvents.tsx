@@ -20,8 +20,8 @@ const WeddingEvents = () => {
       id: 'resepsi',
       title: 'Resepsi Pernikahan',
       icon: FaRing,
-      date: '5 November 2025',
-      day: 'Rabu',
+      date: '9 November 2025',
+      day: 'Minggu',
       time: '11:00 - 14:00 WIB',
       timeNote: 'Siang hari',
       quote: '"Makanan yang paling baik adalah makanan yang dimakan oleh banyak orang."',
@@ -156,7 +156,7 @@ const WeddingEvents = () => {
                       </div>
                       <div className="detail-content">
                         <span className="detail-label">Tempat</span>
-                        <span className="detail-value">Jl. Moch. Toha No.77</span>
+                        <span className="detail-value">PT Inti Persero - Jl. Moch. Toha No.77</span>
                         <span className="detail-sub">Cigereleng, Kec. Regol, Kota Bandung</span>
                       </div>
                     </div>

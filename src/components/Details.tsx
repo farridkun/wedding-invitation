@@ -6,8 +6,8 @@ const AkadNikah = () => {
       <Parallax translateX={[10, -10]}>
         <div className="akad-content">
           <h2>Akad Nikah</h2>
-          <p><strong>Tanggal:</strong> 5 November 2025</p>
-          <p><strong>Hari:</strong> Rabu</p>
+          <p><strong>Tanggal:</strong> 9 November 2025</p>
+          <p><strong>Hari:</strong> Minggu</p>
           <p><strong>Waktu:</strong> 08:00 WIB</p>
           <p><strong>Tempat:</strong> PT Inti Bandung</p>
           <a href="https://maps.google.com/?q=PT+Inti+Bandung" target="_blank" rel="noopener noreferrer" className="maps-button">

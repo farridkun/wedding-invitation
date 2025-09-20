@@ -144,9 +144,39 @@ img {
   backdrop-filter: blur(10px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.intro-content h1 {
+  font-family: 'Italiana', cursive;
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+}
+
+.intro-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.intro-content p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: white;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .intro-content::before {
@@ -199,21 +229,25 @@ img {
 
 .open-button {
   background: linear-gradient(135deg, var(--color-metallic) 0%, var(--color-gold) 50%, var(--color-emerald) 100%);
-  border: none;
+  border: 3px solid transparent;
+  background-clip: padding-box;
   color: white;
-  padding: 16px 32px;
-  font-size: 1.2rem;
+  padding: 18px 40px;
+  font-size: 1.3rem;
   font-weight: 600;
+  font-family: 'Italiana', cursive;
   border-radius: 50px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 
-    0 4px 15px rgba(59, 130, 246, 0.3),
-    0 2px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 2px;
+  box-shadow:
+    0 8px 25px rgba(59, 130, 246, 0.3),
+    0 4px 15px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .open-button::before {
@@ -223,23 +257,53 @@ img {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.open-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 1;
 }
 
 .open-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 8px 25px rgba(59, 130, 246, 0.4),
-    0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 12px 35px rgba(59, 130, 246, 0.4),
+    0 6px 20px rgba(0, 0, 0, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-metallic) 50%, var(--color-emerald-light) 100%);
 }
 
 .open-button:hover::before {
   left: 100%;
 }
 
+.open-button:hover::after {
+  width: 300px;
+  height: 300px;
+}
+
 .open-button:active {
-  transform: translateY(0);
+  transform: translateY(-1px) scale(0.98);
+  transition: all 0.1s ease;
+}
+
+.open-button span {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
 }
 
 .guest-name-input {
@@ -273,16 +337,19 @@ img {
   .intro-content h1 {
     font-size: 2.5rem;
     margin-bottom: 15px;
+    font-family: 'Italiana', cursive;
   }
 
   .intro-content h3 {
     font-size: 1.4rem;
     margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
   }
 
   .intro-content p {
     font-size: 1.1rem;
     margin-bottom: 12px;
+    font-family: 'Playfair Display', serif;
   }
 
   .open-button {
@@ -300,14 +367,17 @@ img {
   .intro-content h1 {
     font-size: 2rem;
     letter-spacing: 1px;
+    font-family: 'Italiana', cursive;
   }
 
   .intro-content h3 {
     font-size: 1.2rem;
+    font-family: 'Playfair Display', serif;
   }
 
   .intro-content p {
     font-size: 1rem;
+    font-family: 'Playfair Display', serif;
   }
 
   .open-button {
@@ -348,7 +418,7 @@ img {
   font-size: 2rem;
   font-weight: bold;
   color: var(--color-dark);
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Italiana', cursive;
 }
 
 .countdown-box .label {
@@ -402,7 +472,7 @@ img {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: var(--color-dark);
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Italiana', cursive;
   position: relative;
   display: inline-block;
 }
@@ -507,6 +577,28 @@ img {
   background: var(--color-offwhite);
   position: relative;
   z-index: 2;
+}
+
+.quotes::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(128, 128, 128, 0.1), transparent);
+  z-index: -1;
+}
+
+.quotes::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(128, 128, 128, 0.1), transparent);
+  z-index: -1;
 }
 
 .quotes blockquote {
@@ -814,7 +906,7 @@ img {
   font-weight: 300;
   color: var(--color-dark);
   margin: 0 0 20px 0;
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Italiana', cursive;
   background: linear-gradient(135deg, var(--color-dark), var(--color-metallic));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -917,7 +1009,7 @@ img {
   font-weight: 400;
   color: var(--color-dark);
   margin: 0;
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Italiana', cursive;
   background: linear-gradient(135deg, var(--color-dark), var(--color-metallic));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1112,7 +1204,7 @@ img {
 
 @media (max-width: 768px) {
   .wedding-events {
-    padding: 60px 20px;
+    padding: 90px 20px;
   }
 
   .events-title {
@@ -1301,6 +1393,18 @@ img {
   }
 }
 
+.story-title-head {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-dark);
+  margin: 0;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, var(--color-dark), var(--color-metallic));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .story-title {
   font-size: 3rem;
   font-weight: 300;
@@ -1443,7 +1547,7 @@ img {
   font-size: 1.8rem;
   color: var(--color-dark);
   margin-bottom: 20px;
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Italiana', cursive;
 }
 
 .conclusion-card p {
@@ -1898,7 +2002,7 @@ img {
   }
 
   .lovestory {
-    padding: 40px 16px;
+    padding: 80px 16px;
   }
 
   .bride, .groom {
@@ -2024,7 +2128,7 @@ img {
   }
 
   .lovestory {
-    padding: 40px 16px;
+    padding: 80px 16px;
   }
 
   .bride, .groom {
