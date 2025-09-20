@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import type { Guest } from '../services/googleSheets';
 import backgroundSound from '../assets/background-sound.mp3';
+import { introImages } from '../utils/images';
 
 interface IntroProps {
   onOpen: () => void;
@@ -25,7 +26,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
     <div className="intro">
       <div className="intro-background">
         <img
-          src="/src/assets/wedding/CLT08580.JPEG"
+          src={introImages[0]}
           alt="Wedding Background"
           className="intro-bg-image"
         />

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Parallax } from 'react-scroll-parallax';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGift, FaCreditCard, FaMapMarkerAlt, FaQrcode, FaCopy, FaHeart, FaTimes, FaExpand } from 'react-icons/fa';
+import { images } from '../utils/images';
 
 const WeddingGift = () => {
   const [showQRModal, setShowQRModal] = useState(false);
@@ -140,7 +141,7 @@ const WeddingGift = () => {
               <h3>Scan QR Code</h3>
               <div className="qr-modal-content">
                 <div className="large-qr-code">
-                  <img src="/src/assets/qr-gopay-dea.png" alt="QR Code for payment" />
+                  <img src={images.qr.gopay} alt="QR Code for payment" />
                 </div>
                 <p>Scan kode QR ini untuk mentransfer dengan mudah</p>
               </div>

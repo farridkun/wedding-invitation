@@ -2,20 +2,10 @@ import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
 import ImageSlider from './ImageSlider';
 import { FaCamera, FaHeart, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { loveStoryImages } from '../utils/images';
 
 // Curated selection of wedding photos for the love story
-const loveStoryImages = [
-  '/src/assets/wedding/CLT08105.JPEG',
-  '/src/assets/wedding/CLT08124.JPEG',
-  '/src/assets/wedding/CLT08143.JPEG',
-  '/src/assets/wedding/CLT08173.JPEG',
-  '/src/assets/wedding/CLT08211.JPEG',
-  '/src/assets/wedding/CLT08255.JPEG',
-  '/src/assets/wedding/CLT08360.JPEG',
-  '/src/assets/wedding/CLT08388.JPEG',
-  '/src/assets/wedding/CLT08440.JPEG',
-  '/src/assets/wedding/CLT08526.JPEG'
-];
+const images = loveStoryImages;
 
 const LoveStory = () => {
   return (
@@ -81,7 +71,7 @@ const LoveStory = () => {
             className="story-slider-container"
           >
             <ImageSlider
-              images={loveStoryImages}
+              images={images}
               interval={5000}
               className="story-slider"
             />

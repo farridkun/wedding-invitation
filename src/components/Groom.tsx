@@ -1,14 +1,11 @@
 import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
 import ImageSlider from './ImageSlider';
+import { groomImages } from '../utils/images';
 
 const Groom = () => {
   // Multiple photos of the groom
-  const groomImages = [
-    '/src/assets/wedding/CLT08666.JPEG',
-    '/src/assets/wedding/CLT08686.JPEG',
-    '/src/assets/wedding/CLT08699.JPEG'
-  ];
+  const images = groomImages;
 
   return (
     <section id="groom" className="groom">
@@ -26,7 +23,7 @@ const Groom = () => {
             className="image-with-gradient"
           >
             <ImageSlider
-              images={groomImages}
+              images={images}
               interval={4000}
               autoplay={true}
               showDots={true}

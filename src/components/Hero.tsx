@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import Countdown from './Countdown';
 import ImageSlider from './ImageSlider';
 import type { Guest } from '../services/googleSheets';
+import { heroImages } from '../utils/images';
 
 interface HeroProps {
   guest: Guest | null;
@@ -9,13 +10,7 @@ interface HeroProps {
 
 const Hero = ({ guest }: HeroProps) => {
   // Hero background images for auto-sliding
-  const heroImages = [
-    '/src/assets/wedding/CLT08580.JPEG',
-    '/src/assets/wedding/CLT08607.JPEG',
-    '/src/assets/wedding/CLT08388.JPEG',
-    '/src/assets/wedding/CLT08296.JPEG',
-    '/src/assets/wedding/CLT08143.JPEG'
-  ];
+  const images = heroImages;
 
   return (
     <section id="hero" className="hero">
@@ -29,13 +24,14 @@ const Hero = ({ guest }: HeroProps) => {
 
       <div className="hero-background">
         <ImageSlider
-          images={heroImages}
+          images={images}
           interval={5000} // 5 seconds for hero auto-slide
           autoplay={true}
           showDots={false}
           showNavigation={false}
           aspectRatio="16/9"
           className="hero-slider"
+          lazy={false} // Disable lazy loading for hero images
         />
         <div className="hero-overlay">
           <div className="hero-gradient"></div>

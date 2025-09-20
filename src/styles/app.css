@@ -1,3 +1,45 @@
+/* Image Optimization and Performance */
+img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.beautiful-image-slider img {
+  transition: opacity 0.3s ease-in-out;
+  will-change: opacity;
+}
+
+/* Optimize image loading */
+.beautiful-image-slider img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.beautiful-image-slider img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Background image optimization for slides */
+.slide {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform, opacity;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .beautiful-image-slider img {
+    transition: none;
+  }
+
+  .slide {
+    transition: none;
+  }
+}
+
 .intro {
   position: fixed;
   top: 0;

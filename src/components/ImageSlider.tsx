@@ -9,6 +9,7 @@ interface ImageSliderProps {
   showDots?: boolean;
   showNavigation?: boolean;
   aspectRatio?: string;
+  lazy?: boolean;
 }
 
 const ImageSlider = ({
@@ -18,29 +19,37 @@ const ImageSlider = ({
   autoplay = true,
   showDots = true,
   showNavigation = true,
-  aspectRatio = '16/9'
+  aspectRatio = '16/9',
+  lazy = true
 }: ImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const intervalRef = useRef<number | null>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  // Preload images
+  // Optimized preloading - only preload current and next few images
   useEffect(() => {
-    const preloadImages = images.map(src => {
-      return new Promise((resolve, reject) => {
+    const preloadImages = () => {
+      // Preload current image and next 2 images for smooth transitions
+      const imagesToPreload = [];
+      for (let i = 0; i < Math.min(3, images.length); i++) {
+        const imgIndex = (currentIndex + i) % images.length;
+        imagesToPreload.push(images[imgIndex]);
+      }
+
+      imagesToPreload.forEach(src => {
         const img = new Image();
-        img.onload = resolve;
-        img.onerror = reject;
         img.src = src;
       });
-    });
+    };
 
-    Promise.all(preloadImages).then(() => {
+    if (images.length > 0) {
+      preloadImages();
       setIsLoaded(true);
-    });
-  }, [images]);
+    }
+  }, [images, currentIndex]);
 
   // Auto-slide functionality
   useEffect(() => {
@@ -129,12 +138,31 @@ const ImageSlider = ({
             key={index}
             className={`slide ${index === currentIndex ? 'active' : ''}`}
             style={{
-              backgroundImage: `url(${image})`,
               opacity: index === currentIndex ? 1 : 0,
               transform: index === currentIndex ? 'scale(1)' : 'scale(1.05)',
               transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
           >
+            <img
+              src={image}
+              alt={`Slide ${index + 1}`}
+              loading={lazy && index > 0 ? 'lazy' : 'eager'}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+              onLoad={() => {
+                if (lazy && index > 0) {
+                  setLoadedImages(prev => new Set(prev).add(index));
+                }
+              }}
+              className={lazy && index > 0 && loadedImages.has(index) ? 'loaded' : ''}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                position: 'absolute',
+                top: 0,
+                left: 0
+              }}
+            />
             <div className="slide-overlay">
               <div className="elegant-gradient"></div>
             </div>
