@@ -6,11 +6,11 @@ const Resepsi = () => {
   return (
     <section id="resepsi" className="resepsi">
       {/* Floating Decorative Elements */}
-      <div className="floating-decoration heart decoration-1">♥</div>
+      {/* <div className="floating-decoration heart decoration-1">♥</div>
       <div className="floating-decoration flower decoration-2">❀</div>
       <div className="floating-decoration star decoration-3">✦</div>
       <div className="floating-decoration diamond decoration-4">◆</div>
-      <div className="floating-decoration heart decoration-5">♥</div>
+      <div className="floating-decoration heart decoration-5">♥</div> */}
 
       <Parallax speed={20}>
         <motion.div

@@ -1,6 +1,8 @@
 import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
 import { FaHome, FaRing, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
+import avniDeaLogoBiru from '../assets/avni-dea-logo-biru.png';
+import dividerHalfBiru from '../assets/divider-half-biru.png';
 
 const WeddingEvents = () => {
   const events = [
@@ -14,7 +16,7 @@ const WeddingEvents = () => {
       timeNote: 'Pagi hari',
       quote: '"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."',
       citation: 'QS. Ar-Rum: 21',
-      decoration: '❀'
+      decoration: ''
     },
     {
       id: 'resepsi',
@@ -26,7 +28,7 @@ const WeddingEvents = () => {
       timeNote: 'Siang hari',
       quote: '"Makanan yang paling baik adalah makanan yang dimakan oleh banyak orang."',
       citation: 'Hadits Riwayat Bukhari',
-      decoration: '♥'
+      decoration: ''
     }
   ];
 
@@ -34,12 +36,6 @@ const WeddingEvents = () => {
     <section id="wedding-events" className="wedding-events">
       {/* Elegant Background Elements */}
       <div className="events-bg-decoration">
-        <div className="bg-ornament ornament-1">✦</div>
-        <div className="bg-ornament ornament-2">❀</div>
-        <div className="bg-ornament ornament-3">◆</div>
-        <div className="bg-ornament ornament-4">♥</div>
-        <div className="bg-ornament ornament-5">✦</div>
-        <div className="bg-ornament ornament-6">❀</div>
       </div>
 
       <Parallax speed={-10}>
@@ -57,11 +53,35 @@ const WeddingEvents = () => {
               transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
               className="header-icon-wrapper"
             >
-              <div className="header-main-icon">
-                <FaHeart />
-              </div>
+              {/* <div className="header-main-icon"> */}
+                {/* <FaHeart /> */}
+                <div
+                  style={{ display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    gap: '12px',
+                  }}
+                >
+                  <img src={dividerHalfBiru} alt="Divider" style={{
+                    width: '80px',
+                    height: '24px',
+                    marginBottom: '-18px',
+                  }} />
+                  <img src={avniDeaLogoBiru} alt="Avni & Dea Logo" style={{
+                    width: '80px',
+                    height: '80px',
+                    marginBottom: '-18px',
+                  }} />
+                  <img src={dividerHalfBiru} alt="Divider" style={{
+                    width: '80px',
+                    height: '24px',
+                    marginBottom: '-18px',
+                    transform: 'rotate(180deg)',
+                  }} />
+                </div>
+              {/* </div>
               <div className="icon-ring ring-1"></div>
-              <div className="icon-ring ring-2"></div>
+              <div className="icon-ring ring-2"></div> */}
             </motion.div>
 
             <motion.h2
@@ -73,7 +93,7 @@ const WeddingEvents = () => {
               Acara Pernikahan
             </motion.h2>
 
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.8 }}
@@ -82,7 +102,7 @@ const WeddingEvents = () => {
               <div className="divider-line"></div>
               <FaHeart className="divider-heart" />
               <div className="divider-line"></div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* Events Grid */}

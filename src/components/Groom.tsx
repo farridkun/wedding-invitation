@@ -26,7 +26,7 @@ const Groom = () => {
               images={images}
               interval={4000}
               autoplay={true}
-              showDots={true}
+              showDots={false}
               aspectRatio="4/5"
               className="featured-slider"
               showNavigation={false}

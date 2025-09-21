@@ -1,21 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { AnimatePresence, motion } from 'framer-motion';
 import Intro from './components/Intro';
 import Hero from './components/Hero';
-import Bride from './components/Bride';
-import Groom from './components/Groom';
 import Quotes from './components/Quotes';
-import WeddingEvents from './components/WeddingEvents';
-import RSVP from './components/RSVP';
-// import WeddingGift from './components/WeddingGift';
-import LoveStory from './components/LoveStory';
-import Wishes from './components/Wishes';
-import Footer from './components/Footer';
-import ScrollButton from './components/ScrollButton';
+import NavigatorMenu from './components/NavigatorMenu';
 import { sheetsService } from './services/googleSheets';
 import type { Guest } from './services/googleSheets';
 import './styles/app.css';
+
+// Lazy load heavy components for better performance
+const Bride = lazy(() => import('./components/Bride'));
+const Groom = lazy(() => import('./components/Groom'));
+const WeddingEvents = lazy(() => import('./components/WeddingEvents'));
+const LoveStory = lazy(() => import('./components/LoveStory'));
+const Wishes = lazy(() => import('./components/Wishes'));
+const Footer = lazy(() => import('./components/Footer'));
+
+// Loading component for Suspense fallback
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    <div className="spinner"></div>
+  </div>
+);
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +48,7 @@ function App() {
             });
           }
         } catch (error) {
+          console.error('Error fetching guest data:', error);
           setGuest({
             No: 0,
             Nama: 'Guest',
@@ -66,8 +74,8 @@ function App() {
 
   if (loading) {
     return (
-      <div className="intro" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div>Loading...</div>
+      <div className="loading-screen">
+        <LoadingSpinner />
       </div>
     );
   }
@@ -94,16 +102,27 @@ function App() {
             className="app"
           >
             <Hero guest={guest} />
-            <Bride />
-            <Groom />
+            <Suspense fallback={<LoadingSpinner />}>
+              <Bride />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Groom />
+            </Suspense>
             <Quotes />
-            <WeddingEvents />
+            <Suspense fallback={<LoadingSpinner />}>
+              <WeddingEvents />
+            </Suspense>
             {/* <WeddingGift /> */}
-            <RSVP guest={guest} />
-            <LoveStory />
-            <Wishes guest={guest} />
-            <Footer />
-            <ScrollButton />
+            <Suspense fallback={<LoadingSpinner />}>
+              <LoveStory />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Wishes guest={guest} />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Footer />
+            </Suspense>
+            <NavigatorMenu />
           </motion.div>
         )}
       </AnimatePresence>

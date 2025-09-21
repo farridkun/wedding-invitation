@@ -1,7 +1,7 @@
 import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
 import ImageSlider from './ImageSlider';
-import { FaCamera, FaHeart, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaCamera, FaHeart, FaCalendarAlt, FaMapMarkerAlt } from '../utils/icons';
 import { loveStoryImages } from '../utils/images';
 
 // Curated selection of wedding photos for the love story
@@ -12,12 +12,12 @@ const LoveStory = () => {
     <section id="lovestory" className="lovestory">
       {/* Elegant Background Elements */}
       <div className="story-bg-decoration">
-        <div className="bg-ornament ornament-1">❀</div>
+        {/* <div className="bg-ornament ornament-1">❀</div>
         <div className="bg-ornament ornament-2">♥</div>
         <div className="bg-ornament ornament-3">✦</div>
         <div className="bg-ornament ornament-4">◆</div>
         <div className="bg-ornament ornament-5">❀</div>
-        <div className="bg-ornament ornament-6">♥</div>
+        <div className="bg-ornament ornament-6">♥</div> */}
       </div>
 
       <Parallax speed={-10}>
@@ -81,6 +81,8 @@ const LoveStory = () => {
           >
             <ImageSlider
               images={images}
+              showNavigation={false}
+              showDots={false}
               interval={5000}
               className="story-slider"
             />

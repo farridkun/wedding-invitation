@@ -4,9 +4,9 @@ const Footer = () => {
   return (
     <footer className="footer">
       {/* Footer Decorative Elements */}
-      <div className="footer-decoration decoration-1">❀</div>
+      {/* <div className="footer-decoration decoration-1">❀</div>
       <div className="footer-decoration decoration-2">♥</div>
-      <div className="footer-decoration decoration-3">✦</div>
+      <div className="footer-decoration decoration-3">✦</div> */}
 
       <motion.div
         initial={{ opacity: 0 }}

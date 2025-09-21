@@ -14,7 +14,7 @@ const WeddingEvents = () => {
       timeNote: 'Pagi hari',
       quote: '"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."',
       citation: 'QS. Ar-Rum: 21',
-      decoration: '❀'
+      decoration: ''
     },
     {
       id: 'resepsi',
@@ -26,7 +26,7 @@ const WeddingEvents = () => {
       timeNote: 'Siang hari',
       quote: '"Makanan yang paling baik adalah makanan yang dimakan oleh banyak orang."',
       citation: 'Hadits Riwayat Bukhari',
-      decoration: '♥'
+      decoration: ''
     }
   ];
 
@@ -34,12 +34,12 @@ const WeddingEvents = () => {
     <section id="wedding-events" className="wedding-events">
       {/* Elegant Background Elements */}
       <div className="events-bg-decoration">
-        <div className="bg-ornament ornament-1">✦</div>
+        {/* <div className="bg-ornament ornament-1">✦</div>
         <div className="bg-ornament ornament-2">❀</div>
         <div className="bg-ornament ornament-3">◆</div>
         <div className="bg-ornament ornament-4">♥</div>
         <div className="bg-ornament ornament-5">✦</div>
-        <div className="bg-ornament ornament-6">❀</div>
+        <div className="bg-ornament ornament-6">❀</div> */}
       </div>
 
       <Parallax speed={-10}>

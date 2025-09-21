@@ -3,6 +3,7 @@ import Countdown from './Countdown';
 import ImageSlider from './ImageSlider';
 import type { Guest } from '../services/googleSheets';
 import { heroImages } from '../utils/images';
+import avniDeaLogo from '../assets/avni-dea-logo.png';
 
 interface HeroProps {
   guest: Guest | null;
@@ -14,13 +15,7 @@ const Hero = ({ guest }: HeroProps) => {
 
   return (
     <section id="hero" className="hero">
-      {/* Floating Decorative Elements */}
-      <div className="hero-decoration decoration-1">❀</div>
-      <div className="hero-decoration decoration-2">♥</div>
-      <div className="hero-decoration decoration-3">✦</div>
-      <div className="hero-decoration decoration-4">❀</div>
-      <div className="hero-decoration decoration-5">♥</div>
-      <div className="hero-decoration decoration-6">✦</div>
+      {/* Logo from assets > avni-dea-logo.png */}
 
       <div className="hero-background">
         <ImageSlider
@@ -43,6 +38,16 @@ const Hero = ({ guest }: HeroProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
+          <img
+          src={avniDeaLogo}
+          alt="Avni & Dea Logo"
+          style={{
+            width: '100px',
+            height: '100px',
+            filter: 'brightness(0) invert(1)',
+            marginBottom: '-12px',
+          }}
+        />
           <h1>
             <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem', color: '#fff' }}>The Wedding of</span>
             <span style={{ fontSize: '3rem', display: 'block' }}>Avni & Dea</span>

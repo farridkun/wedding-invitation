@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
 import { sheetsService } from '../services/googleSheets';
-import type { Guest, Wish } from '../services/googleSheets';
+import type { Guest } from '../services/googleSheets';
 import { FaHeart, FaEnvelope, FaPaperPlane, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 interface WishesProps {
@@ -12,37 +12,39 @@ interface WishesProps {
 const WISHES_PER_PAGE = 5;
 
 const Wishes = ({ guest }: WishesProps) => {
-  const [wishes, setWishes] = useState<Wish[]>([]);
+  const [wishes, setWishes] = useState<Guest[]>([]);
+  const [attendance, setAttendance] = useState<'hadir' | 'tidak'>('hadir');
   const [newWish, setNewWish] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showForm, setShowForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     loadWishes();
-  }, []);
+    if (guest) {
+      if (guest.Kehadiran === 'hadir') {
+        setAttendance('hadir');
+      } else if (guest.Kehadiran === 'tidak') {
+        setAttendance('tidak');
+      }
+    }
+  }, [guest]);
 
   const loadWishes = async () => {
-    const allWishes = await sheetsService.getAllWishes();
-    setWishes(allWishes);
+    const allGuests = await sheetsService.getAllGuests();
+    setWishes(allGuests.filter(g => g.Ucapan && g.Ucapan.trim()));
   };
 
-  const handleSubmitWish = async (e: React.FormEvent) => {
+  const handleSubmitResponse = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newWish.trim() || !guest) return;
 
     setIsSubmitting(true);
-    const wishData: Omit<Wish, 'No'> = {
-      Nama: guest.Nama,
-      Ucapan: newWish.trim(),
-    };
 
-    const success = await sheetsService.addWish(wishData);
+    const success = await sheetsService.updateGuestResponse(guest.Nama, attendance, newWish.trim());
     if (success) {
-      loadWishes(); // Reload wishes after adding new one
+      loadWishes();
       setNewWish('');
-      setShowForm(false);
-      setCurrentPage(1); // Reset to first page when new wish is added
+      setCurrentPage(1);
     }
     setIsSubmitting(false);
   };
@@ -62,12 +64,6 @@ const Wishes = ({ guest }: WishesProps) => {
     <section id="wishes" className="wishes">
       {/* Elegant Background Elements */}
       <div className="wishes-bg-decoration">
-        <div className="bg-ornament ornament-1">❀</div>
-        <div className="bg-ornament ornament-2">♥</div>
-        <div className="bg-ornament ornament-3">✦</div>
-        <div className="bg-ornament ornament-4">◆</div>
-        <div className="bg-ornament ornament-5">❀</div>
-        <div className="bg-ornament ornament-6">♥</div>
       </div>
 
       <Parallax speed={-10}>
@@ -98,7 +94,7 @@ const Wishes = ({ guest }: WishesProps) => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="wishes-title"
             >
-              Ucapan & Doa
+              RSVP & Ucapan
             </motion.h2>
 
             <motion.div
@@ -123,32 +119,38 @@ const Wishes = ({ guest }: WishesProps) => {
           </motion.p>
 
           {guest && (
-            <motion.div
-              className="wishes-actions"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              <button
-                onClick={() => setShowForm(!showForm)}
-                className="wish-button"
-              >
-                {showForm ? 'Batal' : 'Kirim Ucapan'}{""}
-                <FaPaperPlane className="button-icon" />
-              </button>
-            </motion.div>
-          )}
-
-          {showForm && guest && (
             <motion.form
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              onSubmit={handleSubmitWish}
+              onSubmit={handleSubmitResponse}
               className="wish-form"
             >
               <div className="form-group">
                 <label>Dari: <strong>{guest.Nama}</strong></label>
+              </div>
+              <div className="form-group">
+                <label>Konfirmasi Kehadiran:</label>
+                <div className="attendance-options">
+                  <label className="attendance-option">
+                    <input
+                      type="radio"
+                      value="hadir"
+                      checked={attendance === 'hadir'}
+                      onChange={(e) => setAttendance(e.target.value as 'hadir')}
+                    />
+                    <span>Hadir</span>
+                  </label>
+                  <label className="attendance-option">
+                    <input
+                      type="radio"
+                      value="tidak"
+                      checked={attendance === 'tidak'}
+                      onChange={(e) => setAttendance(e.target.value as 'tidak')}
+                    />
+                      <span>Tidak Hadir</span>
+                  </label>
+                </div>
               </div>
               <div className="form-group">
                 <textarea
@@ -164,6 +166,7 @@ const Wishes = ({ guest }: WishesProps) => {
                 disabled={isSubmitting}
                 className="submit-wish-button"
               >
+                <FaPaperPlane className="button-icon" />
                 {isSubmitting ? 'Mengirim...' : 'Kirim Ucapan'}
               </button>
             </motion.form>
@@ -256,7 +259,7 @@ const Wishes = ({ guest }: WishesProps) => {
           </motion.div>
 
           {/* Connecting Element */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 1.4 }}
@@ -267,7 +270,7 @@ const Wishes = ({ guest }: WishesProps) => {
               <FaHeart />
             </div>
             <div className="connector-line"></div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </Parallax>
     </section>

@@ -8,12 +8,7 @@ export interface Guest {
   No: number;
   Nama: string;
   Kehadiran: 'pending' | 'hadir' | 'tidak';
-}
-
-export interface Wish {
-  No: number;
-  Nama: string;
-  Ucapan: string;
+  Ucapan?: string;
 }
 
 // SheetDB API response interfaces
@@ -87,33 +82,6 @@ class GoogleSheetsService {
     }
   }
 
-  // Add new record to a sheet
-  private async addSheetRecord(sheetName: string, data: any): Promise<boolean> {
-    try {
-      const response = await fetch(`${this.baseUrl}?sheet=${sheetName}`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to add to ${sheetName}: ${response.status} ${response.statusText} - ${errorText}`);
-      }
-
-      // SheetDB POST returns response with created count or success indicator
-      const result: any = await response.json();
-      // Handle both response formats: {created: number} or direct success
-      return (result.created && result.created > 0) || response.status === 201;
-    } catch (error) {
-      console.error(`Error adding to ${sheetName}:`, error);
-      return false;
-    }
-  }
-
   // Get guest data by name (from URL parameter)
   async getGuestByName(guestName: string): Promise<Guest | null> {
     try {
@@ -169,14 +137,30 @@ class GoogleSheetsService {
     }
   }
 
-  // Add new wish
-  async addWish(wishData: Omit<Wish, 'No'>): Promise<boolean> {
-    return await this.addSheetRecord('Ucapan', wishData); // Exact sheet name
-  }
+  // Update guest response with attendance and wishes
+  async updateGuestResponse(guestName: string, status: 'hadir' | 'tidak', ucapan: string): Promise<boolean> {
+    try {
+      // Use the Nama column to identify the row
+      const response = await fetch(`${this.baseUrl}/Nama/${encodeURIComponent(guestName)}?sheet=Guests`, {
+        method: 'PATCH',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ Kehadiran: status, Ucapan: ucapan }),
+      });
 
-  // Get all wishes
-  async getAllWishes(): Promise<Wish[]> {
-    return await this.getSheetData('Ucapan'); // Exact sheet name
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to update guest response: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+
+      const result: any = await response.json();
+      return (result.updated && result.updated > 0) || response.status === 200;
+    } catch (error) {
+      console.error('Error updating guest response:', error);
+      return false;
+    }
   }
 
   // Generate unique invitation link for a guest
