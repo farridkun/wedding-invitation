@@ -1,84 +1,89 @@
 // Google Sheets Integration Service
-// Using SheetDB for REST API access to Google Sheets
-// Updated according to SheetDB documentation: https://docs.sheetdb.io/
+// Using SpreadAPI (Roombelt) for FREE REST API access to Google Sheets
+// Documentation: https://spreadapi.roombelt.com/
 
-const SHEETDB_BASE_URL = 'https://sheetdb.io/api/v1/7vu7xwnqs1j8m'; // User's SheetDB URL
+// Replace YOUR_SCRIPT_ID with your actual Google Apps Script deployment ID
+const SPREADAPI_SCRIPT_ID = 'AKfycbyfLiSxjGH-axb33T-QKOw-DBBAX2okUKZEdE545rCCyTedicW0tx7E3M56wNbH8uPTow'; // Get this from SpreadAPI setup
+const SPREADAPI_BASE_URL = `https://script.google.com/macros/s/${SPREADAPI_SCRIPT_ID}/exec`;
 
 export interface Guest {
+  _id?: number; // SpreadAPI uses _id as the row number
   No: number;
   Nama: string;
   Kehadiran: 'pending' | 'hadir' | 'tidak';
   Ucapan?: string;
 }
 
-// SheetDB API response interfaces
-export interface SheetDBResponse<T> {
-  created?: number;
-  updated?: number;
-  deleted?: number;
-  errors?: any[];
-  data?: T[];
+// SpreadAPI request/response interfaces
+export interface SpreadAPIRequest {
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  sheet: string;
+  id?: number;
+  query?: Record<string, any>;
+  payload?: Record<string, any>;
 }
-
-// Note: SheetDB GET requests return data arrays directly,
-// while PATCH/POST requests may return response metadata
 
 class GoogleSheetsService {
   private baseUrl: string;
 
   constructor() {
-    this.baseUrl = SHEETDB_BASE_URL;
+    this.baseUrl = SPREADAPI_BASE_URL;
+  }
+
+  // SpreadAPI: Use GET with query parameters to avoid CORS preflight
+  // POST with Content-Type: application/json triggers OPTIONS preflight which Google Apps Script can't handle
+  private async makeRequest(request: SpreadAPIRequest): Promise<any> {
+    try {
+      // Build URL with query parameters to avoid CORS preflight
+      const url = new URL(this.baseUrl);
+      url.searchParams.append('method', request.method);
+      url.searchParams.append('sheet', request.sheet);
+      
+      if (request.id) {
+        url.searchParams.append('id', request.id.toString());
+      }
+      
+      // For PUT/POST methods, send payload as JSON string in query param
+      if (request.payload) {
+        url.searchParams.append('payload', JSON.stringify(request.payload));
+      }
+      
+      if (request.query) {
+        url.searchParams.append('query', JSON.stringify(request.query));
+      }
+
+      const response = await fetch(url.toString(), {
+        method: 'GET', // Use GET to avoid CORS preflight!
+        redirect: 'follow',
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`SpreadAPI request failed: ${response.status} ${response.statusText} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('SpreadAPI error:', error);
+      console.error('Request was:', request);
+      throw error;
+    }
   }
 
   // Get all records from a sheet
   private async getSheetData(sheetName: string): Promise<any[]> {
     try {
-      const response = await fetch(`${this.baseUrl}?sheet=${sheetName}`, {
+      const result = await this.makeRequest({
         method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
+        sheet: sheetName,
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to fetch ${sheetName} data: ${response.status} ${response.statusText}`);
-      }
-
-      // SheetDB returns the data array directly, not wrapped in a response object
-      const result: any[] = await response.json();
-      return result;
+      // SpreadAPI returns array of objects with _id field
+      return Array.isArray(result) ? result : [];
     } catch (error) {
       console.error(`Error fetching ${sheetName}:`, error);
       return [];
-    }
-  }
-
-  // Update a specific row in a sheet
-  // @ts-ignore - unused private method
-  private async updateSheetRow(sheetName: string, rowId: number, data: any): Promise<boolean> {
-    try {
-      const response = await fetch(`${this.baseUrl}/No/${rowId}?sheet=${sheetName}`, {
-        method: 'PATCH',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to update ${sheetName}: ${response.status} ${response.statusText} - ${errorText}`);
-      }
-
-      // SheetDB PATCH returns response with updated count or success indicator
-      const result: any = await response.json();
-      // Handle both response formats: {updated: number} or direct success
-      return (result.updated && result.updated > 0) || response.status === 200;
-    } catch (error) {
-      console.error(`Error updating ${sheetName}:`, error);
-      return false;
     }
   }
 
@@ -91,9 +96,11 @@ class GoogleSheetsService {
       if (guest) {
         // Transform the data to match our interface
         return {
+          _id: guest._id, // SpreadAPI row ID
           No: parseInt(guest.No) || 0,
           Nama: guest.Nama,
-          Kehadiran: (guest.Kehadiran === 'hadir' || guest.Kehadiran === 'tidak') ? guest.Kehadiran : 'pending'
+          Kehadiran: (guest.Kehadiran === 'hadir' || guest.Kehadiran === 'tidak') ? guest.Kehadiran : 'pending',
+          Ucapan: guest.Ucapan
         };
       }
 
@@ -112,25 +119,25 @@ class GoogleSheetsService {
   // Update guest attendance status
   async updateGuestAttendance(guestName: string, status: 'hadir' | 'tidak'): Promise<boolean> {
     try {
-      // Use the Nama column to identify the row
-      const response = await fetch(`${this.baseUrl}/Nama/${encodeURIComponent(guestName)}?sheet=Guests`, {
-        method: 'PATCH',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ Kehadiran: status }),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to update guest: ${response.status} ${response.statusText} - ${errorText}`);
+      // First, get the guest to find their _id (row number)
+      const guest = await this.getGuestByName(guestName);
+      
+      if (!guest || !guest._id) {
+        console.error('Guest not found or missing _id');
+        return false;
       }
 
-      // SheetDB PATCH returns response with updated count or success indicator
-      const result: any = await response.json();
-      // Handle both response formats: {updated: number} or direct success
-      return (result.updated && result.updated > 0) || response.status === 200;
+      // Update using SpreadAPI's PUT method with _id
+      const result = await this.makeRequest({
+        method: 'PUT',
+        sheet: 'Guests',
+        payload: {
+          _id: guest._id,
+          Kehadiran: status,
+        },
+      });
+
+      return result && result._id === guest._id;
     } catch (error) {
       console.error('Error updating guest attendance:', error);
       return false;
@@ -140,23 +147,26 @@ class GoogleSheetsService {
   // Update guest response with attendance and wishes
   async updateGuestResponse(guestName: string, status: 'hadir' | 'tidak', ucapan: string): Promise<boolean> {
     try {
-      // Use the Nama column to identify the row
-      const response = await fetch(`${this.baseUrl}/Nama/${encodeURIComponent(guestName)}?sheet=Guests`, {
-        method: 'PATCH',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ Kehadiran: status, Ucapan: ucapan }),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to update guest response: ${response.status} ${response.statusText} - ${errorText}`);
+      // First, get the guest to find their _id (row number)
+      const guest = await this.getGuestByName(guestName);
+      
+      if (!guest || !guest._id) {
+        console.error('Guest not found or missing _id');
+        return false;
       }
 
-      const result: any = await response.json();
-      return (result.updated && result.updated > 0) || response.status === 200;
+      // Update using SpreadAPI's PUT method with _id
+      const result = await this.makeRequest({
+        method: 'PUT',
+        sheet: 'Guests',
+        payload: {
+          _id: guest._id,
+          Kehadiran: status,
+          Ucapan: ucapan,
+        },
+      });
+
+      return result && result._id === guest._id;
     } catch (error) {
       console.error('Error updating guest response:', error);
       return false;
