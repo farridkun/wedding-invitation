@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import type { Guest } from '../services/googleSheets';
 import backgroundSound from '../assets/background-sound.mp3';
-import { introImages } from '../utils/images';
+import introImage from '../assets/intro-image.JPEG';
 import avniDeaLogo from '../assets/avni-dea-logo.png';
 import dividerHorizontal from '../assets/divider-horizontal.png';
 
@@ -27,7 +27,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
     <div className="intro">
       <div className="intro-background">
         <img
-          src={introImages[0]}
+          src={introImage}
           alt="Wedding Background"
           className="intro-bg-image"
         />
@@ -37,9 +37,9 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
       </div>
       <motion.div
         className="intro-content"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <img src={avniDeaLogo} alt="AD Logo" style={{
           filter: 'brightness(0) invert(1)',
@@ -53,7 +53,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           className="mb-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           Wedding Invitation
         </motion.h3>
@@ -62,9 +62,9 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
             color: '#fff',
           }}
           className="font-weight-bold"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 1, ease: "easeOut" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
           AVNI & DEA
         </motion.h1>
@@ -75,7 +75,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
         >
           09 . 11 . 2025
         </motion.p>
@@ -88,7 +88,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
         >
           Kepada Yth:
         </motion.p>
@@ -96,14 +96,14 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           style={{ fontSize: '1.4rem', fontWeight: '500', color: '#fff', paddingTop: '8px' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
         >
           {guest && guest.Nama !== 'Guest' ? ` ${guest.Nama}` : 'Tamu Undangan'}
         </motion.p>
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 1.8, ease: "easeOut" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1.3 }}
         >
           <div
             onClick={handleOpen}
