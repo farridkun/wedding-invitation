@@ -55,12 +55,40 @@ Create a new Google Sheet with two tabs:
 |----|------|--------|
 | 1  | Ahmad | Selamat menempuh hidup baru! |
 
-### 3. SheetDB Setup
+### 3. SpreadAPI Setup (FREE Alternative)
 
-1. Go to [SheetDB.io](https://sheetdb.io)
-2. Connect your Google Sheet
-3. Copy the API URL (should look like: `https://sheetdb.io/api/v1/7vu7xwnqs1j8m`)
-4. The API URL is already configured in `src/services/googleSheets.ts`
+**SpreadAPI** is a completely free Google Apps Script solution - no limitations!
+
+1. **Open Your Google Sheet**
+   - Go to your Google Sheet with Guests data
+
+2. **Install SpreadAPI Script**
+   - Go to `Extensions` → `Apps Script`
+   - Copy the SpreadAPI code from: https://spreadapi.roombelt.com/setup
+   - Paste it into the Apps Script editor
+   - Save the project
+
+3. **Deploy the Script**
+   - Click `Deploy` → `New deployment`
+   - Select type: `Web app`
+   - Set "Execute as": `Me`
+   - Set "Who has access": `Anyone`
+   - Click `Deploy`
+   - Copy the deployment URL (it will look like: `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec`)
+
+4. **Update Your Config**
+   - Open `src/services/googleSheets.ts`
+   - Replace `YOUR_SCRIPT_ID` with the actual Script ID from your deployment URL
+   - Example: If your URL is `https://script.google.com/macros/s/ABC123XYZ/exec`, use `ABC123XYZ`
+
+**Why SpreadAPI?**
+- ✅ 100% Free forever
+- ✅ No rate limits
+- ✅ No third-party access to your data
+- ✅ Runs on your Google account
+- ✅ Open source
+
+**Documentation**: https://spreadapi.roombelt.com/
 
 ## Usage
 
