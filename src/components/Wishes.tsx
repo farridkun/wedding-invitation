@@ -75,7 +75,7 @@ const Wishes = ({ guest }: WishesProps) => {
             transition={{ duration: 1, delay: 0.2 }}
             className="wishes-header"
           >
-            <motion.div
+            {/* <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
@@ -86,7 +86,7 @@ const Wishes = ({ guest }: WishesProps) => {
               </div>
               <div className="icon-ring ring-1"></div>
               <div className="icon-ring ring-2"></div>
-            </motion.div>
+            </motion.div> */}
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -109,14 +109,14 @@ const Wishes = ({ guest }: WishesProps) => {
             </motion.div>
           </motion.div>
 
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
             className="wishes-description"
           >
             Berikan ucapan dan doa terbaik untuk Avni & Dea
-          </motion.p>
+          </motion.p> */}
 
           {guest && (
             <motion.form
@@ -126,8 +126,9 @@ const Wishes = ({ guest }: WishesProps) => {
               onSubmit={handleSubmitResponse}
               className="wish-form"
             >
-              <div className="form-group">
-                <label>Dari: <strong>{guest.Nama}</strong></label>
+              <div className="form-group" style={{ marginBottom: '10px' }}>
+                <label>Dari</label>
+                <strong>{guest.Nama}</strong>
               </div>
               <div className="form-group">
                 <label>Konfirmasi Kehadiran:</label>
@@ -193,31 +194,22 @@ const Wishes = ({ guest }: WishesProps) => {
               </motion.div>
             ) : (
               <>
-                <div className="wishes-grid">
+                <div className="wishes-list-simple">
                   {currentWishes.map((wish, index) => (
                     <motion.div
                       key={wish.No}
-                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="wish-card"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="wish-item-simple"
                     >
-                      <div className="wish-card-header">
-                        <div className="wish-avatar">
-                          <FaHeart />
-                        </div>
-                        <div className="wish-author">
+                      <div className="wish-item-content">
+                        <div className="wish-author-simple">
+                          <FaHeart className="wish-heart-icon" />
                           <strong>{wish.Nama}</strong>
+                          <span className="wish-number-simple">#{wish.No}</span>
                         </div>
-                        <div className="wish-decoration">
-                          <FaHeart />
-                        </div>
-                      </div>
-                      <div className="wish-card-content">
-                        <p className="wish-message">{wish.Ucapan}</p>
-                      </div>
-                      <div className="wish-card-footer">
-                        <div className="wish-number">#{wish.No}</div>
+                        <p className="wish-message-simple">{wish.Ucapan}</p>
                       </div>
                     </motion.div>
                   ))}

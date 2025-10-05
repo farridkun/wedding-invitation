@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import Countdown from './Countdown';
 import ImageSlider from './ImageSlider';
 import type { Guest } from '../services/googleSheets';
 import { heroImages } from '../utils/images';
@@ -9,7 +8,7 @@ interface HeroProps {
   guest: Guest | null;
 }
 
-const Hero = ({ guest }: HeroProps) => {
+const Hero = ({}: HeroProps) => {
   // Hero background images for auto-sliding
   const images = heroImages;
 
@@ -38,7 +37,7 @@ const Hero = ({ guest }: HeroProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <img
+        <img
           src={avniDeaLogo}
           alt="Avni & Dea Logo"
           style={{
@@ -52,9 +51,9 @@ const Hero = ({ guest }: HeroProps) => {
             <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem', color: '#fff' }}>The Wedding of</span>
             <span style={{ fontSize: '3rem', display: 'block' }}>Avni & Dea</span>
           </h1>
-          <p>Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
-          <p>Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i{guest && guest.Nama !== 'Guest' ? ` ${guest.Nama}` : ''} untuk menghadiri acara pernikahan kami:</p>
-          <Countdown />
+          <h1>
+            <span style={{ fontSize: '1rem', display: 'block', marginBottom: '1.5rem', color: '#fff', letterSpacing: 1.5 }}>09 November 2025</span>
+          </h1>
         </motion.div>
       </div>
     </section>

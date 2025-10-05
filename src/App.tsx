@@ -3,25 +3,64 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 import { AnimatePresence, motion } from 'framer-motion';
 import Intro from './components/Intro';
 import Hero from './components/Hero';
-import Quotes from './components/Quotes';
-import NavigatorMenu from './components/NavigatorMenu';
+import ScrollButton from './components/ScrollButton';
+// import NavigatorMenu from './components/NavigatorMenu';
 import { sheetsService } from './services/googleSheets';
 import type { Guest } from './services/googleSheets';
+import avniDeaLogo from './assets/avni-dea-logo.png';
 import './styles/app.css';
 
 // Lazy load heavy components for better performance
-const Bride = lazy(() => import('./components/Bride'));
-const Groom = lazy(() => import('./components/Groom'));
+const BrideGroomIntro = lazy(() => import('./components/BrideGroomIntro'));
+const BrideGroom = lazy(() => import('./components/BrideGroom'));
 const WeddingEvents = lazy(() => import('./components/WeddingEvents'));
 const LoveStory = lazy(() => import('./components/LoveStory'));
+// const OurMoments = lazy(() => import('./components/OurMoments'));
+const CountdownSection = lazy(() => import('./components/CountdownSection'));
 const Wishes = lazy(() => import('./components/Wishes'));
 const Footer = lazy(() => import('./components/Footer'));
+const WeddingGift = lazy(() => import('./components/WeddingGift'));
 
 // Loading component for Suspense fallback
 const LoadingSpinner = () => (
-  <div className="loading-spinner">
-    <div className="spinner"></div>
-  </div>
+  <motion.div 
+    className="loading-spinner"
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.6, ease: 'easeOut' }}
+    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+  >
+    <motion.img
+      src={avniDeaLogo}
+      alt="Avni & Dea Logo"
+      className="loading-logo"
+      initial={{ opacity: 0, rotate: -180 }}
+      animate={{ opacity: 1, rotate: 0 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+      style={{
+        width: '180px',
+        height: '180px',
+        filter: 'brightness(0) invert(1)',
+      }}
+    />
+    <motion.div
+      style={{ marginTop: '-24px' }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+    >
+      <div
+        style={{ marginTop: '8px', color: '#fff', fontSize: '1.2rem', letterSpacing: '2px', textAlign: 'center' }}
+      >
+        The Wedding of
+      </div>
+      <div
+        style={{ color: '#fff', fontSize: '2rem', fontWeight: 'bold', letterSpacing: '3px', textAlign: 'center' }}
+      >
+        Avni & Dea
+      </div>
+    </motion.div>
+  </motion.div>
 );
 
 function App() {
@@ -103,18 +142,25 @@ function App() {
           >
             <Hero guest={guest} />
             <Suspense fallback={<LoadingSpinner />}>
-              <Bride />
+              <BrideGroomIntro />
             </Suspense>
             <Suspense fallback={<LoadingSpinner />}>
-              <Groom />
+              <BrideGroom />
             </Suspense>
-            <Quotes />
             <Suspense fallback={<LoadingSpinner />}>
               <WeddingEvents />
             </Suspense>
-            {/* <WeddingGift /> */}
+            <Suspense fallback={<LoadingSpinner />}>
+              <CountdownSection />
+            </Suspense>
             <Suspense fallback={<LoadingSpinner />}>
               <LoveStory />
+            </Suspense>
+            {/* <Suspense fallback={<LoadingSpinner />}>
+              <OurMoments />
+            </Suspense> */}
+            <Suspense fallback={<LoadingSpinner />}>
+              <WeddingGift />
             </Suspense>
             <Suspense fallback={<LoadingSpinner />}>
               <Wishes guest={guest} />
@@ -122,7 +168,8 @@ function App() {
             <Suspense fallback={<LoadingSpinner />}>
               <Footer />
             </Suspense>
-            <NavigatorMenu />
+            <ScrollButton />
+            {/* <NavigatorMenu /> */}
           </motion.div>
         )}
       </AnimatePresence>

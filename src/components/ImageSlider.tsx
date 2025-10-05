@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { bgOvalFrame } from '../utils/images';
 
 interface ImageSliderProps {
   images: string[];
@@ -10,6 +11,8 @@ interface ImageSliderProps {
   showNavigation?: boolean;
   aspectRatio?: string;
   lazy?: boolean;
+  oval?: boolean;
+  showThumbnails?: boolean;
 }
 
 const ImageSlider = ({
@@ -20,14 +23,16 @@ const ImageSlider = ({
   showDots = true,
   showNavigation = true,
   aspectRatio = '16/9',
-  lazy = true
+  lazy = true,
+  oval = false,
+  showThumbnails = false
 }: ImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+  // const [isPaused, setIsPaused] = useState(false);
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const sliderRef = useRef<HTMLDivElement>(null);
+  // const sliderRef = useRef<HTMLDivElement>(null);
 
   // Optimized preloading - only preload current and next few images
   useEffect(() => {
@@ -53,7 +58,8 @@ const ImageSlider = ({
 
   // Auto-slide functionality
   useEffect(() => {
-    if (autoplay && isLoaded && !isPaused) {
+    if (autoplay && isLoaded) {
+    // if (autoplay && isLoaded && !isPaused) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
       }, interval);
@@ -64,45 +70,45 @@ const ImageSlider = ({
         clearInterval(intervalRef.current);
       }
     };
-  }, [autoplay, interval, images.length, isLoaded, isPaused]);
+  }, [autoplay, interval, images.length, isLoaded]);
 
   // Pause on hover/touch
-  const handleMouseEnter = () => setIsPaused(true);
-  const handleMouseLeave = () => setIsPaused(false);
+  // const handleMouseEnter = () => setIsPaused(true);
+  // const handleMouseLeave = () => setIsPaused(false);
 
   // Touch handling for mobile
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  // const [touchStart, setTouchStart] = useState<number | null>(null);
+  // const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-    setIsPaused(true); // Pause during touch
-  };
+  // const handleTouchStart = (e: React.TouchEvent) => {
+  //   setTouchEnd(null);
+  //   setTouchStart(e.targetTouches[0].clientX);
+  //   setIsPaused(true); // Pause during touch
+  // };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
+  // const handleTouchMove = (e: React.TouchEvent) => {
+  //   setTouchEnd(e.targetTouches[0].clientX);
+  // };
 
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) {
-      setIsPaused(false);
-      return;
-    }
+  // const handleTouchEnd = () => {
+  //   if (!touchStart || !touchEnd) {
+  //     setIsPaused(false);
+  //     return;
+  //   }
 
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
+  //   const distance = touchStart - touchEnd;
+  //   const isLeftSwipe = distance > 50;
+  //   const isRightSwipe = distance < -50;
 
-    if (isLeftSwipe) {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }
-    if (isRightSwipe) {
-      setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-    }
+  //   if (isLeftSwipe) {
+  //     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  //   }
+  //   if (isRightSwipe) {
+  //     setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  //   }
 
-    setIsPaused(false);
-  };
+  //   setIsPaused(false);
+  // };
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
@@ -120,19 +126,28 @@ const ImageSlider = ({
 
   return (
     <motion.div
-      className={`beautiful-image-slider ${className}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      ref={sliderRef}
-      style={{ aspectRatio }}
+      className={`beautiful-image-slider ${className} ${oval ? 'oval-frame' : ''}`}
+      style={oval ? {
+        aspectRatio,
+        position: 'relative'
+      } : { aspectRatio }}
     >
-      <div className="slider-viewport">
+            <div 
+        className="slider-viewport"
+        style={oval ? {
+          borderRadius: '50%',
+          overflow: 'hidden',
+          width: '80%',
+          height: '80%',
+          position: 'absolute',
+          top: '10%',
+          left: '10%',
+          border: '5px solid rgba(7, 31, 93, 0.5)',
+          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+          backgroundColor: 'rgba(7, 31, 93, 0.3)',
+          zIndex: 1,
+        } : {}}
+      >
         {images.map((image, index) => (
           <div
             key={index}
@@ -170,6 +185,25 @@ const ImageSlider = ({
         ))}
       </div>
 
+      {oval && (
+        <div
+          className="oval-frame-overlay"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundImage: `url(${bgOvalFrame})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            pointerEvents: 'none',
+            zIndex: 2
+          }}
+        />
+      )}
+
       {showDots && images.length > 1 && (
         <div className="elegant-dots">
           {images.map((_, index) => (
@@ -180,6 +214,28 @@ const ImageSlider = ({
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
+        </div>
+      )}
+
+      {/* Thumbnail navigation */}
+      {showThumbnails && images.length > 1 && (
+        <div className="thumbnail-navigation">
+          <div className="thumbnail-container">
+            {images.map((image, index) => (
+              <button
+                key={index}
+                className={`thumbnail-item ${index === currentIndex ? 'active' : ''}`}
+                onClick={() => goToSlide(index)}
+                aria-label={`View image ${index + 1}`}
+              >
+                <img
+                  src={image}
+                  alt={`Thumbnail ${index + 1}`}
+                  loading="lazy"
+                />
+              </button>
+            ))}
+          </div>
         </div>
       )}
 

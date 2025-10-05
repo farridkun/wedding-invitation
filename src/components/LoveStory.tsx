@@ -1,25 +1,10 @@
 import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
-import ImageSlider from './ImageSlider';
-import { FaCamera, FaHeart, FaCalendarAlt, FaMapMarkerAlt } from '../utils/icons';
-import { loveStoryImages } from '../utils/images';
-
-// Curated selection of wedding photos for the love story
-const images = loveStoryImages;
+import { FaHeart } from '../utils/icons';
 
 const LoveStory = () => {
   return (
     <section id="lovestory" className="lovestory">
-      {/* Elegant Background Elements */}
-      <div className="story-bg-decoration">
-        {/* <div className="bg-ornament ornament-1">❀</div>
-        <div className="bg-ornament ornament-2">♥</div>
-        <div className="bg-ornament ornament-3">✦</div>
-        <div className="bg-ornament ornament-4">◆</div>
-        <div className="bg-ornament ornament-5">❀</div>
-        <div className="bg-ornament ornament-6">♥</div> */}
-      </div>
-
       <Parallax speed={-10}>
         <div className="story-container">
           {/* Section Header */}
@@ -29,18 +14,18 @@ const LoveStory = () => {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="story-header"
           >
-            <motion.div
+            {/* <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1, type: "spring" }}
               className="header-icon-wrapper"
             >
               <div className="header-main-icon">
-                <FaCamera />
+                <FaHeart />
               </div>
               <div className="icon-ring ring-1"></div>
               <div className="icon-ring ring-2"></div>
-            </motion.div>
+            </motion.div> */}
 
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
@@ -48,9 +33,9 @@ const LoveStory = () => {
               transition={{ duration: 0.5, delay: 0.15 }}
               className="story-title-head"
             >
-              Love Story of
+              Our Love Story
             </motion.h3>
-            
+
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -72,86 +57,30 @@ const LoveStory = () => {
             </motion.div>
           </motion.div>
 
-          {/* Image Slider */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="story-slider-container"
-          >
-            <ImageSlider
-              images={images}
-              showNavigation={false}
-              showDots={false}
-              interval={5000}
-              className="story-slider"
-            />
-          </motion.div>
-
-          {/* Timeline */}
+          {/* Love Story Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="story-timeline"
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="story-content"
           >
-            <div className="timeline-item">
-              <div className="timeline-marker">
-                <FaCalendarAlt />
-              </div>
-              <div className="timeline-content">
-                <h3>Pertemuan Pertama</h3>
-                <p>Kisah cinta Dea dan Avni dimulai dari pertemuan yang tak terduga, di mana dua jiwa yang saling melengkapi menemukan satu sama lain.</p>
-              </div>
-            </div>
+            <div className="story-text">
+              <p>
+                Kisah kami berawal dari sebuah perkenalan sederhana yang dijembatani oleh seorang teman. Siapa sangka, perkenalan yang awalnya terasa sederhana justru menjadi awal dari cerita terindah dalam hidup kami.
+              </p>
 
-            <div className="timeline-item">
-              <div className="timeline-marker">
-                <FaHeart />
-              </div>
-              <div className="timeline-content">
-                <h3>Percikan Cinta</h3>
-                <p>Mereka bertemu di sebuah acara yang penuh kehangatan dan keceriaan, di mana percikan pertama cinta mulai menyala.</p>
-              </div>
-            </div>
+              <p>
+                Beberapa waktu setelah itu, kami pun memutuskan untuk bertemu langsung untuk pertama kalinya. Suasananya begitu santai namun romantis penuh tawa ringan, obrolan hangat, dan rasa nyaman yang sulit dijelaskan.
+              </p>
 
-            <div className="timeline-item">
-              <div className="timeline-marker">
-                <FaMapMarkerAlt />
-              </div>
-              <div className="timeline-content">
-                <h3>Takdir Bersama</h3>
-                <p>Setelah beberapa waktu, mereka menyadari bahwa mereka ditakdirkan untuk bersama, menciptakan kenangan indah yang akan dikenang seumur hidup.</p>
-              </div>
-            </div>
-          </motion.div>
+              <p>
+                Pertemuan demi pertemuan berikutnya pun berjalan begitu alami. Rasa saling suka tumbuh perlahan, tanpa paksaan, hanya dengan kejujuran dan perhatian kecil yang membuat segalanya terasa begitu berarti. Hingga akhirnya, dengan penuh keyakinan dan cinta, kami memutuskan untuk melangkah ke jenjang yang lebih serius menuju pernikahan.
+              </p>
 
-          {/* Conclusion */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
-            className="story-conclusion"
-          >
-            <div className="conclusion-card">
-              <FaHeart className="conclusion-icon" />
-              <h3>Hari Bahagia</h3>
-              <p>Dan sekarang, mereka mengundang Anda untuk merayakan hari bahagia mereka dalam perjalanan cinta yang penuh berkah!</p>
+              <p>
+                Kini, kami siap menulis babak baru dari kisah yang dimulai dengan satu perkenalan sederhana, menjadi kisah cinta seumur hidup.
+              </p>
             </div>
-          </motion.div>
-
-          {/* Connecting Element */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="story-connector"
-          >
-            <div className="connector-line"></div>
-            <div className="connector-heart">
-              <FaHeart />
-            </div>
-            <div className="connector-line"></div>
           </motion.div>
         </div>
       </Parallax>

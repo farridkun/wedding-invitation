@@ -28,8 +28,8 @@ const Groom = () => {
               autoplay={true}
               showDots={false}
               aspectRatio="4/5"
-              className="featured-slider"
               showNavigation={false}
+              oval={true}
             />
           </motion.div>
 

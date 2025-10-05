@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Quotes = () => {
   return (
-    <section id="quotes" className="quotes">
+    <section id="countdown-section" className="countdown-section">
       <Parallax speed={20}>
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}

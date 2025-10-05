@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import type { Guest } from '../services/googleSheets';
 import backgroundSound from '../assets/background-sound.mp3';
-import { introImages } from '../utils/images';
-import avniDeaLogo from '../assets/avni-dea-logo.png';
 import dividerHorizontal from '../assets/divider-horizontal.png';
+import { IoIosMailOpen } from "react-icons/io";
 
 interface IntroProps {
   onOpen: () => void;
@@ -11,127 +11,117 @@ interface IntroProps {
 }
 
 const Intro = ({ onOpen, guest }: IntroProps) => {
+  const [isSlidingUp, setIsSlidingUp] = useState(false);
+
   const handleOpen = () => {
+    // Start slide up animation
+    setIsSlidingUp(true);
+    
     // Play background sound
     const audio = new Audio(backgroundSound);
-    audio.loop = true; // Loop the background music
-    audio.volume = 0.3; // Set volume to 30%
+    audio.loop = true;
+    audio.volume = 0.3;
     audio.play().catch(error => {
       console.error('Error playing background sound:', error);
     });
 
-    // Call the original onOpen function
-    onOpen();
+    // Call onOpen after animation completes
+    setTimeout(() => {
+      onOpen();
+    }, 800); // Match the transition duration
   };
+
   return (
-    <div className="intro">
-      <div className="intro-background">
-        <img
-          src={introImages[0]}
-          alt="Wedding Background"
-          className="intro-bg-image"
-        />
-        <div className="intro-overlay">
-          <div className="intro-gradient"></div>
-        </div>
-      </div>
+    <div className={`intro-modern ${isSlidingUp ? 'slide-up' : ''}`}>
+      {/* Background Overlay */}
+      <div className="intro-image-overlay"></div>
+      <div className="intro-bottom-gradient"></div>
+
+      {/* Top Content Section */}
       <motion.div
-        className="intro-content"
-        initial={{ opacity: 0, y: 30 }}
+        className="intro-content-top"
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <img src={avniDeaLogo} alt="AD Logo" style={{
-          filter: 'brightness(0) invert(1)',
-          width: '180px',
-          height: '180px', 
-        }} />
-        <motion.h3
-          style={{
-            color: '#fff',
-          }}
-          className="mb-2"
+        {/* Wedding Invitation Text */}
+        <motion.p
+          className="intro-subtitle"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
-          Wedding Invitation
-        </motion.h3>
+          THE WEDDING OF
+        </motion.p>
+
+        {/* Couple Names */}
         <motion.h1
-          style={{
-            color: '#fff',
-          }}
-          className="font-weight-bold"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 1, ease: "easeOut" }}
+          className="intro-couple-names"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
-          AVNI & DEA
+          Avni & Dea
         </motion.h1>
-        <motion.p
-          style={{
-            color: '#fff',
-            marginBottom: '12px',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
-        >
-          09 . 11 . 2025
-        </motion.p>
-        <img src={dividerHorizontal} alt="Divider" style={{
-          marginTop: '-18px',
-        }} />
-        <motion.p
-          style={{
-            color: '#fff',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
-        >
-          Kepada Yth:
-        </motion.p>
-        <motion.p
-          style={{ fontSize: '1.4rem', fontWeight: '500', color: '#fff', paddingTop: '8px' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
-        >
-          {guest && guest.Nama !== 'Guest' ? ` ${guest.Nama}` : 'Tamu Undangan'}
-        </motion.p>
+
+        {/* Divider */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 1.8, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 0.7 }}
         >
-          <div
-            onClick={handleOpen}
-            style={{
-              display: 'inline-block',
-              padding: '8px 16px',
-              fontSize: '1.2rem',
-              fontFamily: 'Playfair Display, serif',
-              fontWeight: 400,
-              color: '#fff',
-              background: 'rgba(249, 243, 239, 0.3)',
-              border: '2px solid rgba(249, 243, 239, 0.9)',
-              backdropFilter: 'blur(4px)',
-              borderRadius: '9999px', // Full pill shape
-              cursor: 'pointer',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              marginTop: '12px',
-            }}
-          >
-                        <span
-              style={{
-                fontSize: '1.1rem',
-                fontFamily: 'Playfair Display, serif',
-                fontWeight: 400,
-              }}
-            >BUKA UNDANGAN</span>
-          </div>
+          <img
+            src={dividerHorizontal}
+            alt="Divider"
+            className="intro-divider"
+          />
         </motion.div>
+
+        {/* Date */}
+        <motion.p
+          className="intro-date"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
+        >
+          09 . 11 . 2025
+        </motion.p>
+      </motion.div>
+
+      {/* Bottom Content Section */}
+      <motion.div
+        className="intro-content-modern"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+      >
+
+        {/* Guest Name */}
+        <motion.div
+          className="intro-guest-section"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
+        >
+          <p className="intro-dear">Kepada Yth:</p>
+          <p className="intro-guest-name">
+            {guest && guest.Nama !== 'Guest' ? guest.Nama : 'Tamu Undangan'}
+          </p>
+        </motion.div>
+
+        {/* Open Invitation Button */}
+        <motion.button
+          className="intro-open-button"
+          onClick={handleOpen}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.3 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <IoIosMailOpen size={24} />
+          Buka Undangan
+        </motion.button>
       </motion.div>
     </div>
   );

@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Parallax } from 'react-scroll-parallax';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGift, FaCreditCard, FaMapMarkerAlt, FaQrcode, FaCopy, FaHeart, FaTimes, FaExpand } from 'react-icons/fa';
+import { FaCreditCard, FaCopy, FaTimes } from 'react-icons/fa';
+import { IoIosGift } from 'react-icons/io';
 import { images } from '../utils/images';
 
 const WeddingGift = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
 
   const copyToClipboard = (text: string) => {
@@ -23,12 +25,9 @@ const WeddingGift = () => {
             className="gift-header"
           >
             <div className="gift-icon">
-              <FaGift />
+              <IoIosGift />
             </div>
             <h2>Wedding Gift</h2>
-            <div className="gift-decoration">
-              <FaHeart className="heart-icon" />
-            </div>
           </motion.div>
 
           <motion.p
@@ -40,79 +39,71 @@ const WeddingGift = () => {
             Doa restu Anda merupakan karunia terindah bagi kami. Namun jika Anda ingin memberikan hadiah, kami sangat berterima kasih atas perhatiannya.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="gift-options"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="gift-toggle-button"
           >
-            <div className="gift-option">
-              <div className="option-header">
-                <div className="option-icon">
-                  <FaCreditCard />
-                </div>
-                <h3>Transfer BCA</h3>
-              </div>
-              <div className="option-content">
-                <p className="account-info">3370224811 a.n Dea Ditawijaya</p>
-                <button onClick={() => copyToClipboard('3370224811')} className="copy-button">
-                  <FaCopy /> Copy Nomor Rekening
-                </button>
-              </div>
-            </div>
+             <IoIosGift />
+            <span>Wedding Gift</span>
+          </motion.button>
 
-            <div className="gift-option">
-              <div className="option-header">
-                <div className="option-icon">
-                  <FaCreditCard />
-                </div>
-                <h3>Transfer Mandiri</h3>
-              </div>
-              <div className="option-content">
-                <p className="account-info">1320025316697 a.n Avni Cahyaning Asih</p>
-                <button onClick={() => copyToClipboard('1320025316697')} className="copy-button">
-                  <FaCopy /> Copy Nomor Rekening
-                </button>
-              </div>
-            </div>
-
-            <div className="gift-option">
-              <div className="option-header">
-                <div className="option-icon">
-                  <FaMapMarkerAlt />
-                </div>
-                <h3>Alamat Kirim Kado</h3>
-              </div>
-              <div className="option-content">
-                <p className="account-info">
-                  Jl. Raya Bogor KM 47, Cibinong, Bogor<br />
-                  RT 01 RW 01, Desa Cibinong<br />
-                  Kecamatan Cibinong, Kabupaten Bogor<br />
-                  Jawa Barat 16911
-                </p>
-              </div>
-            </div>
-
-            <div className="gift-option qr-option">
-              <div className="option-header">
-                <div className="option-icon">
-                  <FaQrcode />
-                </div>
-                <h3>QR Code</h3>
-              </div>
-              <div className="option-content">
-                <div className="qr-placeholder" onClick={() => setShowQRModal(true)}>
-                  <div className="qr-code">
-                    <FaQrcode size={48} />
+          <AnimatePresence>
+            {isExpanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5 }}
+                className="gift-details"
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="gift-options"
+                >
+                  <div className="gift-option">
+                    <div className="option-header">
+                      <div className="option-icon">
+                        <FaCreditCard />
+                      </div>
+                      <h3 style={{ color: '#1a365d' }}>Transfer BCA</h3>
+                    </div>
+                    <div className="option-content">
+                      <div className="account-info-container" onClick={() => copyToClipboard('3370224811')}>
+                        <p className="account-info">
+                          <span className="account-number">3370224811</span><br />
+                          <span className="account-name">a.n Dea Ditawijaya</span>
+                        </p>
+                        <FaCopy className="copy-icon" />
+                      </div>
+                    </div>
                   </div>
-                  <button className="expand-button">
-                    <FaExpand className="expand-icon" />
-                    Klik untuk memperbesar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+
+                  <div className="gift-option">
+                    <div className="option-header">
+                      <div className="option-icon">
+                        <FaCreditCard />
+                      </div>
+                      <h3 style={{ color: '#1a365d'}}>Transfer Mandiri</h3>
+                    </div>
+                    <div className="option-content">
+                      <div className="account-info-container" onClick={() => copyToClipboard('1320025316697')}>
+                        <p className="account-info">
+                          <span className="account-number">1320025316697</span><br />
+                          <span className="account-name">a.n Avni Cahyaning Asih</span>
+                        </p>
+                        <FaCopy className="copy-icon" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </Parallax>
 
