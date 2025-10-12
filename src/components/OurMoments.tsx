@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import { momentsImages } from '../utils/images';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const OurMoments = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -66,14 +65,6 @@ const OurMoments = () => {
     emblaMainApi.on('reInit', onSelect);
   }, [emblaMainApi, onSelect]);
 
-  const scrollPrev = useCallback(() => {
-    if (emblaMainApi) emblaMainApi.scrollPrev();
-  }, [emblaMainApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaMainApi) emblaMainApi.scrollNext();
-  }, [emblaMainApi]);
-
   return (
     <section id="our-moments" className="our-moments">
       <div className="our-moments-container">
@@ -119,22 +110,6 @@ const OurMoments = () => {
                 ))}
               </div>
             </div>
-
-            {/* Navigation Buttons */}
-            <button
-              className="embla__button embla__button--prev"
-              onClick={scrollPrev}
-              aria-label="Previous image"
-            >
-              <FaChevronLeft />
-            </button>
-            <button
-              className="embla__button embla__button--next"
-              onClick={scrollNext}
-              aria-label="Next image"
-            >
-              <FaChevronRight />
-            </button>
 
             {/* Thumbnails */}
             <div className="embla-thumbs">

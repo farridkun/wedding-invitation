@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Countdown from './Countdown';
 import { Parallax } from 'react-scroll-parallax';
-import { heroImages } from '../utils/images';
+import { countDownImages } from '../utils/images';
 import ImageSlider from './ImageSlider';
 
 const CountdownSection = () => {
@@ -9,7 +9,7 @@ const CountdownSection = () => {
     <section id="countdown-section" className="countdown-section">
       <div className="countdown-background">
         <ImageSlider
-          images={heroImages}
+          images={countDownImages}
           interval={5000} // 5 seconds for auto-slide
           autoplay={true}
           showDots={false}

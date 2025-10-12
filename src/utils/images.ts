@@ -77,6 +77,7 @@ export const heroImages = [
   sliderHeroImages['slide-hero-1'],
   sliderHeroImages['slide-hero-2'],
   sliderHeroImages['slide-hero-3'],
+  sliderHeroImages['slide-hero-4'],
 ];
 
 export const brideImages = [
@@ -119,4 +120,9 @@ export const momentsImages = [
   momentsImage['image-moments-4'],
   momentsImage['image-moments-5'],
   momentsImage['image-moments-6'],
+];
+
+export const countDownImages = [
+  weddingImages['image-countdown-1'],
+  weddingImages['image-countdown-2'],
 ];

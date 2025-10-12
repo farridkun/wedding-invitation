@@ -15,7 +15,7 @@ const BrideGroomIntro = lazy(() => import('./components/BrideGroomIntro'));
 const BrideGroom = lazy(() => import('./components/BrideGroom'));
 const WeddingEvents = lazy(() => import('./components/WeddingEvents'));
 const LoveStory = lazy(() => import('./components/LoveStory'));
-// const OurMoments = lazy(() => import('./components/OurMoments'));
+const OurMoments = lazy(() => import('./components/OurMoments'));
 const CountdownSection = lazy(() => import('./components/CountdownSection'));
 const Wishes = lazy(() => import('./components/Wishes'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -156,9 +156,9 @@ function App() {
             <Suspense fallback={<LoadingSpinner />}>
               <LoveStory />
             </Suspense>
-            {/* <Suspense fallback={<LoadingSpinner />}>
+            <Suspense fallback={<LoadingSpinner />}>
               <OurMoments />
-            </Suspense> */}
+            </Suspense>
             <Suspense fallback={<LoadingSpinner />}>
               <WeddingGift />
             </Suspense>
