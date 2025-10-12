@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Intro from './components/Intro';
 import Hero from './components/Hero';
 import ScrollButton from './components/ScrollButton';
+import AdminGuestLinks from './pages/AdminGuestLinks';
 // import NavigatorMenu from './components/NavigatorMenu';
 import { sheetsService } from './services/googleSheets';
 import type { Guest } from './services/googleSheets';
@@ -68,6 +69,10 @@ function App() {
   const [guest, setGuest] = useState<Guest | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Check if accessing admin page
+  const isAdminPage = window.location.pathname === '/admin-secret-links' || 
+                      window.location.pathname === '/admin-secret-links/';
+
   useEffect(() => {
     const initializeGuest = async () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -110,6 +115,11 @@ function App() {
   const handleOpen = () => {
     setIsOpen(true);
   };
+
+  // Show admin page if accessing admin route
+  if (isAdminPage) {
+    return <AdminGuestLinks />;
+  }
 
   if (loading) {
     return (
