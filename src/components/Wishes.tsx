@@ -61,7 +61,18 @@ const Wishes = ({ guest }: WishesProps) => {
   };
 
   return (
-    <section id="wishes" className="wishes">
+    <section id="wishes" className="wishes" style={{
+      background: `
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.01) 75%),
+        #f8f8f8
+      `,
+      backgroundSize: '20px 20px, 30px 30px, 40px 40px, 20px 20px, 20px 20px',
+      backgroundAttachment: 'fixed'
+    }}>
       {/* Elegant Background Elements */}
       <div className="wishes-bg-decoration">
       </div>
@@ -97,7 +108,7 @@ const Wishes = ({ guest }: WishesProps) => {
               RSVP & Ucapan
             </motion.h2>
 
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.8 }}
@@ -106,7 +117,7 @@ const Wishes = ({ guest }: WishesProps) => {
               <div className="divider-line"></div>
               <FaEnvelope className="divider-heart" />
               <div className="divider-line"></div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* <motion.p
@@ -127,11 +138,11 @@ const Wishes = ({ guest }: WishesProps) => {
               className="wish-form"
             >
               <div className="form-group" style={{ marginBottom: '10px' }}>
-                <label>Dari</label>
+                <label style={{ fontFamily: 'Outfit', fontWeight: 400 }}>Dari</label>
                 <strong>{guest.Nama}</strong>
               </div>
               <div className="form-group">
-                <label>Konfirmasi Kehadiran:</label>
+                <label style={{ fontFamily: 'Outfit', fontWeight: 400 }}>Konfirmasi Kehadiran:</label>
                 <div className="attendance-options">
                   <label className="attendance-option">
                     <input
@@ -140,7 +151,9 @@ const Wishes = ({ guest }: WishesProps) => {
                       checked={attendance === 'hadir'}
                       onChange={(e) => setAttendance(e.target.value as 'hadir')}
                     />
-                    <span>Hadir</span>
+                    <div className="option-content">
+                      <span style={{ fontFamily: 'Outfit' }}>Hadir</span>
+                    </div>
                   </label>
                   <label className="attendance-option">
                     <input
@@ -149,7 +162,9 @@ const Wishes = ({ guest }: WishesProps) => {
                       checked={attendance === 'tidak'}
                       onChange={(e) => setAttendance(e.target.value as 'tidak')}
                     />
-                      <span>Tidak Hadir</span>
+                    <div className="option-content">
+                      <span style={{ fontFamily: 'Outfit' }}>Tidak Hadir</span>
+                    </div>
                   </label>
                 </div>
               </div>
@@ -166,6 +181,7 @@ const Wishes = ({ guest }: WishesProps) => {
                 type="submit"
                 disabled={isSubmitting}
                 className="submit-wish-button"
+                style={{ fontFamily: 'Outfit' }}
               >
                 <FaPaperPlane className="button-icon" />
                 {isSubmitting ? 'Mengirim...' : 'Kirim Ucapan'}
@@ -179,7 +195,7 @@ const Wishes = ({ guest }: WishesProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
           >
-            <h3>Ucapan yang Diterima ({wishes.length})</h3>
+            <h3 style={{ fontFamily: 'Outfit' }}>Ucapan yang Diterima ({wishes.length})</h3>
             {currentWishes.length === 0 ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -189,8 +205,8 @@ const Wishes = ({ guest }: WishesProps) => {
                 <div className="no-wishes-icon">
                   <FaEnvelope />
                 </div>
-                <h4>Belum ada ucapan</h4>
-                <p>Jadilah yang pertama memberikan ucapan dan doa untuk Avni & Dea!</p>
+                <h4 style={{ fontFamily: 'Outfit' }}>Belum ada ucapan</h4>
+                <p style={{ fontFamily: 'Outfit' }}>Jadilah yang pertama memberikan ucapan dan doa untuk Avni & Dea!</p>
               </motion.div>
             ) : (
               <>
@@ -207,9 +223,9 @@ const Wishes = ({ guest }: WishesProps) => {
                         <div className="wish-author-simple">
                           <FaHeart className="wish-heart-icon" />
                           <strong>{wish.Nama}</strong>
-                          <span className="wish-number-simple">#{wish.No}</span>
+                          <span className="wish-number-simple" style={{ fontFamily: 'Outfit' }}>#{wish.No}</span>
                         </div>
-                        <p className="wish-message-simple">{wish.Ucapan}</p>
+                        <p className="wish-message-simple" style={{ fontFamily: 'Outfit' }}>{wish.Ucapan}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -228,12 +244,12 @@ const Wishes = ({ guest }: WishesProps) => {
                       className="pagination-button"
                     >
                       <FaChevronLeft />
-                      <span>Sebelumnya</span>
+                      <span style={{ fontFamily: 'Outfit' }}>Sebelumnya</span>
                     </button>
 
                     <div className="pagination-info">
-                      <span className="current-page">{currentPage}</span>
-                      <span className="total-pages">dari {totalPages}</span>
+                      <span className="current-page" style={{ fontFamily: 'Outfit' }}>{currentPage}</span>
+                      <span className="total-pages" style={{ fontFamily: 'Outfit' }}>dari {totalPages}</span>
                     </div>
 
                     <button
@@ -241,7 +257,7 @@ const Wishes = ({ guest }: WishesProps) => {
                       disabled={currentPage === totalPages}
                       className="pagination-button"
                     >
-                      <span>Selanjutnya</span>
+                      <span style={{ fontFamily: 'Outfit' }}>Selanjutnya</span>
                       <FaChevronRight />
                     </button>
                   </motion.div>

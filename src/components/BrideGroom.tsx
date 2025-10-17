@@ -42,6 +42,10 @@ const BrideGroom = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="image-with-gradient"
+                // style={{
+                //   position: 'relative',
+                //   background: 'linear-gradient(to top, rgba(0, 127, 174, 0.8) 0%, rgba(0, 127, 174, 0.4) 50%, transparent 100%)'
+                // }}
               >
                 <ImageSlider
                   images={brideImagesArray}
@@ -52,6 +56,22 @@ const BrideGroom = () => {
                   showNavigation={false}
                   oval={true}
                 />
+                <h1 style={{
+                  fontFamily: 'The Nautigal',
+                  position: 'absolute',
+                  bottom: '50px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontSize: '3.5rem',
+                  fontWeight: 'bold',
+                  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+                  zIndex: 10,
+                  margin: 0,
+                  textAlign: 'center'
+                }}>
+                  Avni
+                </h1>
               </motion.div>
 
               <motion.div
@@ -60,8 +80,9 @@ const BrideGroom = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <h3>The Bride</h3>
-                <h2>Avni Cahyaning Asih</h2>
-                <p>Putri dari Bapak Surachman Paryana Apvip & Ibu Nia Kurniasari</p>
+                <h2 style={{ fontFamily: 'The Nautigal', fontSize: '2.8rem', fontWeight: 700  }}>Avni Cahyaning Asih</h2>
+                <p style={{ fontFamily: 'Outfit', marginBottom: '-0.2rem' }}>Putri dari</p>
+                <p style={{ fontFamily: 'Outfit' }}>Bapak Surachman Paryana Apvip & Ibu Nia Kurniasari</p>
                 <a href="https://instagram.com/avcahy_" target="_blank" rel="noopener noreferrer" className="instagram-button">
                   @avcahy_
                 </a>
@@ -80,6 +101,10 @@ const BrideGroom = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="image-with-gradient"
+                // style={{
+                //   position: 'relative',
+                //   background: 'linear-gradient(to top, rgba(0, 127, 174, 0.8) 0%, rgba(0, 127, 174, 0.4) 50%, transparent 100%)'
+                // }}
               >
                 <ImageSlider
                   images={groomImagesArray}
@@ -90,6 +115,22 @@ const BrideGroom = () => {
                   showNavigation={false}
                   oval={true}
                 />
+                <h1 style={{
+                  fontFamily: 'The Nautigal',
+                  position: 'absolute',
+                  bottom: '50px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontSize: '3.5rem',
+                  fontWeight: 'bold',
+                  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+                  zIndex: 10,
+                  margin: 0,
+                  textAlign: 'center'
+                }}>
+                  Dea
+                </h1>
               </motion.div>
 
               <motion.div
@@ -98,8 +139,9 @@ const BrideGroom = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <h3>The Groom</h3>
-                <h2>Dea Ditawijaya</h2>
-                <p>Putra dari Bapak Agus Suratman & Ibu Siti Hodijah (Almh) / Tusmiati</p>
+                <h2 style={{ fontFamily: 'The Nautigal', fontSize: '2.8rem', fontWeight: 700  }}>Dea Ditawijaya</h2>
+                <p style={{ fontFamily: 'Outfit', marginBottom: '-0.2rem' }}>Putra dari</p>
+                <p style={{ fontFamily: 'Outfit' }}>Bapak Agus Suratman & Ibu Siti Hodijah (Almh) / Tusmiati</p>
                 <a href="https://instagram.com/deaditawijaya" target="_blank" rel="noopener noreferrer" className="instagram-button">
                   @deyaditawijaya
                 </a>

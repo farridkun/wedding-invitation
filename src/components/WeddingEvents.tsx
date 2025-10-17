@@ -42,7 +42,7 @@ const WeddingEvents = () => {
             className="events-header"
           >
             <h2 className="events-title mb-2">Acara Pernikahan</h2>
-            <p>Acara InsyaAllah akan dilaksanakan pada</p>
+            <p style={{ fontFamily: 'Outfit' }}>Acara InsyaAllah akan dilaksanakan pada</p>
           </motion.div>
 
           {/* Events List */}
@@ -58,7 +58,7 @@ const WeddingEvents = () => {
                 <h2 className="mt-2 nautical-font">Minggu</h2>
               </div>
               <div className="event-content">
-                <h2 className="event-name">9 November 2025</h2>
+                <h2 className="event-name" style={{ fontFamily: 'Outfit' }}>9 November 2025</h2>
               </div>
             </div>
 
@@ -71,7 +71,7 @@ const WeddingEvents = () => {
               </div>
               <div className="event-content">
                 <h3 className="event-name">Akad Nikah</h3>
-                <p className="event-time">Pukul 08:00 - 10:00 WIB</p>
+                <p className="event-time" style={{ fontFamily: 'Outfit' }}>Pukul 08:00 - 10:00 WIB</p>
               </div>
             </div>
 
@@ -82,7 +82,7 @@ const WeddingEvents = () => {
               </div>
               <div className="event-content">
                 <h3 className="event-name">Resepsi</h3>
-                <p className="event-time">Pukul 11:00 - 14:00 WIB</p>
+                <p className="event-time" style={{ fontFamily: 'Outfit' }}>Pukul 11:00 - 14:00 WIB</p>
               </div>
             </div>
 
@@ -93,8 +93,8 @@ const WeddingEvents = () => {
               </div>
               <div className="event-content">
                 <h3 className="event-name">Bertempat di</h3>
-                <p className="event-location">PT Inti Persero - Jl. Moch. Toha No.77</p>
-                <p className="event-location-sub">Cigereleng, Kec. Regol, Kota Bandung</p>
+                <p className="event-location" style={{ fontFamily: 'Outfit' }}>PT Inti Persero - Jl. Moch. Toha No.77</p>
+                <p className="event-location-sub" style={{ fontFamily: 'Outfit' }}>Cigereleng, Kec. Regol, Kota Bandung</p>
               </div>
             </div>
           </motion.div>
@@ -113,7 +113,7 @@ const WeddingEvents = () => {
               className="maps-button"
             >
               <FaMapMarkerAlt />
-              <span>Lihat di Google Maps</span>
+              <span style={{ fontFamily: 'Outfit' }}>Lihat di Google Maps</span>
             </a>
           </motion.div>
         </div>

@@ -34,7 +34,7 @@ const CountdownSection = () => {
               <div className="countdown-display">
                 <Countdown />
               </div>
-              <button className="save-date-button">
+              <button className="save-date-button" style={{ fontFamily: 'Outfit' }}>
                 Save the Date
               </button>
             </motion.div>

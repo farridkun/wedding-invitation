@@ -66,7 +66,18 @@ const OurMoments = () => {
   }, [emblaMainApi, onSelect]);
 
   return (
-    <section id="our-moments" className="our-moments">
+    <section id="our-moments" className="our-moments" style={{
+      background: `
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.01) 75%),
+        #f8f8f8
+      `,
+      backgroundSize: '20px 20px, 30px 30px, 40px 40px, 20px 20px, 20px 20px',
+      backgroundAttachment: 'fixed'
+    }}>
       <div className="our-moments-container">
         {/* Section Header */}
         <motion.div
@@ -83,6 +94,15 @@ const OurMoments = () => {
           >
             Our Moments
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="moments-subtitle"
+            style={{ fontFamily: 'Outfit', fontSize: '0.8rem' }}
+          >
+            Constantly, consistently, continually, You.
+          </motion.p>
         </motion.div>
 
         {/* Moments Gallery */}

@@ -48,11 +48,11 @@ const Hero = ({}: HeroProps) => {
           }}
         />
           <h1>
-            <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem', color: '#fff' }}>The Wedding of</span>
+            <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem', color: '#fff', fontFamily: 'Outfit' }}>The Wedding of</span>
             <span style={{ fontSize: '3rem', display: 'block' }}>Avni & Dea</span>
           </h1>
           <h1>
-            <span style={{ fontSize: '1rem', display: 'block', marginBottom: '1.5rem', color: '#fff', letterSpacing: 1.5 }}>09 November 2025</span>
+            <span style={{ fontSize: '1rem', display: 'block', marginBottom: '1.5rem', color: '#fff', letterSpacing: 1.5, fontFamily: 'Outfit' }}>09 November 2025</span>
           </h1>
         </motion.div>
       </div>

@@ -90,9 +90,27 @@ const AdminGuestLinks = () => {
     return `${baseUrl}/?guest=${encodedName}`;
   };
 
-  const copyToClipboard = async (link: string, index: number) => {
+  const copyToClipboard = async (guest: Guest, index: number) => {
+    const message = `Kepada Yth.
+${guest.Nama}
+
+Assalamu'alaikum warahmatullahi wabarakatuh
+
+Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan izin dan rahmat-Nya, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara resepsi pernikahan kami:
+Avni & Dea
+
+Informasi selengkapnya dapat diakses di:
+🔗 ${generateGuestLink(guest.Nama)}
+
+Kehadiran dan doa restu dari Bapak/Ibu/Saudara/i merupakan anugerah terindah bagi kami.
+
+Wassalamu'alaikum warahmatullahi wabarakatuh
+
+Kami yang berbahagia,
+Avni & Dea`;
+
     try {
-      await navigator.clipboard.writeText(link);
+      await navigator.clipboard.writeText(message);
       setCopiedIndex(index);
       setTimeout(() => setCopiedIndex(null), 2000);
     } catch (error) {
@@ -102,7 +120,26 @@ const AdminGuestLinks = () => {
 
   const copyAllLinks = async () => {
     const allLinks = guests
-      .map((guest) => `${guest.Nama}: ${generateGuestLink(guest.Nama)}`)
+      .map((guest) => `Kepada Yth.
+${guest.Nama}
+
+Assalamu'alaikum warahmatullahi wabarakatuh
+
+Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan izin dan rahmat-Nya, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara resepsi pernikahan kami:
+Avni & Dea
+
+Informasi selengkapnya dapat diakses di:
+🔗 ${generateGuestLink(guest.Nama)}
+
+Kehadiran dan doa restu dari Bapak/Ibu/Saudara/i merupakan anugerah terindah bagi kami.
+
+Wassalamu'alaikum warahmatullahi wabarakatuh
+
+Kami yang berbahagia,
+Avni & Dea
+
+---
+`)
       .join('\n');
     
     try {
@@ -340,7 +377,7 @@ const AdminGuestLinks = () => {
                       </div>
                       <div className="table-cell">
                         <button
-                          onClick={() => copyToClipboard(link, globalIndex)}
+                          onClick={() => copyToClipboard(guest, globalIndex)}
                           className={`copy-button ${isCopied ? 'copied' : ''}`}
                           title="Copy link"
                         >

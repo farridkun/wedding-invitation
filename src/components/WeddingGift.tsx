@@ -35,6 +35,7 @@ const WeddingGift = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="gift-description"
+            style={{ fontFamily: 'Outfit' }}
           >
             Doa restu Anda merupakan karunia terindah bagi kami. Namun jika Anda ingin memberikan hadiah, kami sangat berterima kasih atas perhatiannya.
           </motion.p>
@@ -46,8 +47,8 @@ const WeddingGift = () => {
             onClick={() => setIsExpanded(!isExpanded)}
             className="gift-toggle-button"
           >
-             <IoIosGift />
-            <span>Wedding Gift</span>
+             <IoIosGift style={{ color: '#007FAE' }} />
+            <span style={{ fontFamily: 'Outfit', color: '#007FAE' }}>Wedding Gift</span>
           </motion.button>
 
           <AnimatePresence>
@@ -70,13 +71,13 @@ const WeddingGift = () => {
                       <div className="option-icon">
                         <FaCreditCard />
                       </div>
-                      <h3 style={{ color: '#1a365d' }}>Transfer BCA</h3>
+                      <h3 style={{ color: '#1a365d', fontFamily: 'Outfit', fontWeight: 500 }}>Transfer BCA</h3>
                     </div>
                     <div className="option-content">
                       <div className="account-info-container" onClick={() => copyToClipboard('3370224811')}>
                         <p className="account-info">
                           <span className="account-number">3370224811</span><br />
-                          <span className="account-name">a.n Dea Ditawijaya</span>
+                          <span className="account-name" style={{ fontFamily: 'Outfit' }}>a.n Dea Ditawijaya</span>
                         </p>
                         <FaCopy className="copy-icon" />
                       </div>
@@ -88,13 +89,13 @@ const WeddingGift = () => {
                       <div className="option-icon">
                         <FaCreditCard />
                       </div>
-                      <h3 style={{ color: '#1a365d'}}>Transfer Mandiri</h3>
+                      <h3 style={{ color: '#1a365d', fontFamily: 'Outfit', fontWeight: 500 }}>Transfer Mandiri</h3>
                     </div>
                     <div className="option-content">
                       <div className="account-info-container" onClick={() => copyToClipboard('1320025316697')}>
                         <p className="account-info">
                           <span className="account-number">1320025316697</span><br />
-                          <span className="account-name">a.n Avni Cahyaning Asih</span>
+                          <span className="account-name" style={{ fontFamily: 'Outfit' }}>a.n Avni Cahyaning Asih</span>
                         </p>
                         <FaCopy className="copy-icon" />
                       </div>

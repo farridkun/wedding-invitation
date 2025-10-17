@@ -1,10 +1,16 @@
 import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
-import { FaHeart } from '../utils/icons';
+import bgLoveStory from '../assets/wedding/bg-love-story.jpg';
 
 const LoveStory = () => {
   return (
-    <section id="lovestory" className="lovestory">
+    <section id="lovestory" className="lovestory" style={{
+      backgroundImage: `url(${bgLoveStory})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed'
+    }}>
       <Parallax speed={-10}>
         <div className="story-container">
           {/* Section Header */}
@@ -32,6 +38,7 @@ const LoveStory = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15 }}
               className="story-title-head"
+              style={{ fontFamily: 'Outfit', fontWeight: 400 }}
             >
               Our Love Story
             </motion.h3>
@@ -45,7 +52,7 @@ const LoveStory = () => {
               Avni & Dea
             </motion.h2>
 
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               whileInView={{ opacity: 1, scaleX: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -54,7 +61,7 @@ const LoveStory = () => {
               <div className="divider-line"></div>
               <FaHeart className="divider-heart" />
               <div className="divider-line"></div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* Love Story Content */}
@@ -65,19 +72,19 @@ const LoveStory = () => {
             className="story-content"
           >
             <div className="story-text">
-              <p>
+              <p style={{ fontFamily: 'Outfit' }}>
                 Kisah kami berawal dari sebuah perkenalan sederhana yang dijembatani oleh seorang teman. Siapa sangka, perkenalan yang awalnya terasa sederhana justru menjadi awal dari cerita terindah dalam hidup kami.
               </p>
 
-              <p>
+              <p style={{ fontFamily: 'Outfit' }}>
                 Beberapa waktu setelah itu, kami pun memutuskan untuk bertemu langsung untuk pertama kalinya. Suasananya begitu santai namun romantis penuh tawa ringan, obrolan hangat, dan rasa nyaman yang sulit dijelaskan.
               </p>
 
-              <p>
+              <p style={{ fontFamily: 'Outfit' }}>
                 Pertemuan demi pertemuan berikutnya pun berjalan begitu alami. Rasa saling suka tumbuh perlahan, tanpa paksaan, hanya dengan kejujuran dan perhatian kecil yang membuat segalanya terasa begitu berarti. Hingga akhirnya, dengan penuh keyakinan dan cinta, kami memutuskan untuk melangkah ke jenjang yang lebih serius menuju pernikahan.
               </p>
 
-              <p>
+              <p style={{ fontFamily: 'Outfit' }}>
                 Kini, kami siap menulis babak baru dari kisah yang dimulai dengan satu perkenalan sederhana, menjadi kisah cinta seumur hidup.
               </p>
             </div>

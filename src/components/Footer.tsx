@@ -40,6 +40,7 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="footer-message"
+          style={{ fontFamily: 'Outfit' }}
         >
           Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan do'a restunya untuk keberkahan pernikahan kami.
         </motion.p>
@@ -49,6 +50,7 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="footer-thanks"
+          style={{ fontFamily: 'Outfit' }}
         >
           Atas doa dan restunya, kami ucapkan terima kasih.
         </motion.p>

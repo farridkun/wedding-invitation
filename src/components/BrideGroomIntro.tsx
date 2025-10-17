@@ -30,9 +30,9 @@ const BrideGroomIntro = () => {
           className="bride-groom-quote"
         >
           <blockquote>
-            "pernikahan adalah tanda kebesaran Allah untuk menciptakan ketentraman, cinta, dan kasih sayang antara suami dan istri, yang menjadi dasar bagi kehidupan yang harmonis dan kebahagiaan rumah tangga. "
+            Pernikahan adalah tanda kebesaran Allah untuk menciptakan ketentraman, cinta, dan kasih sayang antara suami dan istri, yang menjadi dasar bagi kehidupan yang harmonis dan kebahagiaan rumah tangga. 
           </blockquote>
-          <cite>- QS Ar-Rum ayat 21</cite>
+          <cite>- QS Ar-Rum ayat 21 -</cite>
         </motion.div>
       </div>
     </section>

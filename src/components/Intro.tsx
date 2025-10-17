@@ -50,8 +50,9 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
+          style={{ fontFamily: 'Outfit' }}
         >
-          THE WEDDING OF
+          WEDDING INVITATION
         </motion.p>
 
         {/* Couple Names */}
@@ -83,6 +84,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.9 }}
+          style={{ fontFamily: 'Outfit' }}
         >
           09 . 11 . 2025
         </motion.p>
@@ -104,7 +106,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           transition={{ duration: 0.6, delay: 1.1 }}
         >
           <p className="intro-dear">Kepada Yth:</p>
-          <p className="intro-guest-name">
+          <p className="intro-guest-name" style={{ fontFamily: 'Outfit' }}>
             {guest && guest.Nama !== 'Guest' ? guest.Nama : 'Tamu Undangan'}
           </p>
         </motion.div>
@@ -120,7 +122,9 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           whileTap={{ scale: 0.95 }}
         >
           <IoIosMailOpen size={24} />
+          <p style={{ fontFamily: 'Outfit' }}>
           Buka Undangan
+          </p>
         </motion.button>
       </motion.div>
     </div>
