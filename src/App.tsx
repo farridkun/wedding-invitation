@@ -23,46 +23,53 @@ const Footer = lazy(() => import('./components/Footer'));
 const WeddingGift = lazy(() => import('./components/WeddingGift'));
 
 // Loading component for Suspense fallback
-const LoadingSpinner = () => (
-  <motion.div 
-    className="loading-spinner"
-    initial={{ opacity: 0, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.6, ease: 'easeOut' }}
-    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-  >
-    <motion.img
-      src={avniDeaLogo}
-      alt="Avni & Dea Logo"
-      className="loading-logo"
-      initial={{ opacity: 0, rotate: -180 }}
-      animate={{ opacity: 1, rotate: 0 }}
-      transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-      style={{
-        width: '180px',
-        height: '180px',
-        filter: 'brightness(0) invert(1)',
-      }}
-    />
-    <motion.div
-      style={{ marginTop: '-24px' }}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+const LoadingSpinner = () => {
+  const [dots, setDots] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots(prev => prev.length >= 3 ? '' : prev + '.');
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <motion.div 
+      className="loading-spinner"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <div
-        style={{ marginTop: '8px', color: '#fff', fontSize: '1.2rem', letterSpacing: '2px', textAlign: 'center' }}
+      <motion.img
+        src={avniDeaLogo}
+        alt="Avni & Dea Logo"
+        className="loading-logo"
+        initial={{ opacity: 0, rotate: -180 }}
+        animate={{ opacity: 1, rotate: 0 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+        style={{
+          width: '180px',
+          height: '180px',
+          filter: 'brightness(0) invert(1)',
+        }}
+      />
+      <motion.div
+        style={{ marginTop: '-24px' }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
       >
-        The Wedding of
-      </div>
-      <div
-        style={{ color: '#fff', fontSize: '2rem', fontWeight: 'bold', letterSpacing: '3px', textAlign: 'center' }}
-      >
-        Avni & Dea
-      </div>
+        <div
+          style={{ marginTop: '8px', color: '#fff', fontSize: '1.2rem', letterSpacing: '2px', textAlign: 'center', fontFamily: 'Outfit' }}
+        >
+          Loading{dots}
+        </div>
+      </motion.div>
     </motion.div>
-  </motion.div>
-);
+  );
+};
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,6 +84,9 @@ function App() {
     const initializeGuest = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const guestName = urlParams.get('guest');
+
+      // Add minimum 2-second loading delay
+      const startTime = Date.now();
 
       if (guestName) {
         const decodedGuestName = decodeURIComponent(guestName);
@@ -106,7 +116,13 @@ function App() {
           Kehadiran: 'pending'
         });
       }
-      setLoading(false);
+
+      const elapsedTime = Date.now() - startTime;
+      const remainingDelay = Math.max(0, 3000 - elapsedTime);
+
+      setTimeout(() => {
+        setLoading(false);
+      }, remainingDelay);
     };
 
     initializeGuest();
