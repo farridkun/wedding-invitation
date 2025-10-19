@@ -34,26 +34,13 @@ class GoogleSheetsService {
   // POST with Content-Type: application/json triggers OPTIONS preflight which Google Apps Script can't handle
   private async makeRequest(request: SpreadAPIRequest): Promise<any> {
     try {
-      // Build URL with query parameters to avoid CORS preflight
-      const url = new URL(this.baseUrl);
-      url.searchParams.append('method', request.method);
-      url.searchParams.append('sheet', request.sheet);
-      
-      if (request.id) {
-        url.searchParams.append('id', request.id.toString());
-      }
-      
-      // For PUT/POST methods, send payload as JSON string in query param
-      if (request.payload) {
-        url.searchParams.append('payload', JSON.stringify(request.payload));
-      }
-      
-      if (request.query) {
-        url.searchParams.append('query', JSON.stringify(request.query));
-      }
-
-      const response = await fetch(url.toString(), {
-        method: 'GET', // Use GET to avoid CORS preflight!
+      const response = await fetch(this.baseUrl, {
+        method: 'POST',
+        headers: {
+          // Using text/plain avoids CORS preflight while still letting us send JSON payloads
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(request),
         redirect: 'follow',
       });
 
@@ -80,7 +67,15 @@ class GoogleSheetsService {
       });
 
       // SpreadAPI returns array of objects with _id field
-      return Array.isArray(result) ? result : [];
+      if (Array.isArray(result)) {
+        return result;
+      }
+
+      if (result && Array.isArray(result.data)) {
+        return result.data;
+      }
+
+      return [];
     } catch (error) {
       console.error(`Error fetching ${sheetName}:`, error);
       return [];
@@ -91,17 +86,11 @@ class GoogleSheetsService {
   async getGuestByName(guestName: string): Promise<Guest | null> {
     try {
       const guests = await this.getSheetData('Guests');
-      const guest = guests.find((g: any) => g.Nama?.toLowerCase() === guestName.toLowerCase());
+  const normalizedTarget = guestName.trim().toLowerCase();
+  const guest = guests.find((g: any) => g.Nama?.toString().trim().toLowerCase() === normalizedTarget);
 
       if (guest) {
-        // Transform the data to match our interface
-        return {
-          _id: guest._id, // SpreadAPI row ID
-          No: parseInt(guest.No) || 0,
-          Nama: guest.Nama,
-          Kehadiran: (guest.Kehadiran === 'hadir' || guest.Kehadiran === 'tidak') ? guest.Kehadiran : 'pending',
-          Ucapan: guest.Ucapan
-        };
+        return this.transformGuest(guest);
       }
 
       return null;
@@ -113,7 +102,8 @@ class GoogleSheetsService {
 
   // Get all guests
   async getAllGuests(): Promise<Guest[]> {
-    return await this.getSheetData('Guests'); // Correct sheet name
+    const rows = await this.getSheetData('Guests');
+    return rows.map((row) => this.transformGuest(row));
   }
 
   // Update guest attendance status
@@ -133,11 +123,12 @@ class GoogleSheetsService {
         sheet: 'Guests',
         payload: {
           _id: guest._id,
+          id: guest._id,
           Kehadiran: status,
         },
       });
 
-      return result && result._id === guest._id;
+        return this.isSuccessfulUpdate(result, guest._id);
     } catch (error) {
       console.error('Error updating guest attendance:', error);
       return false;
@@ -161,16 +152,59 @@ class GoogleSheetsService {
         sheet: 'Guests',
         payload: {
           _id: guest._id,
+          id: guest._id,
           Kehadiran: status,
           Ucapan: ucapan,
         },
       });
 
-      return result && result._id === guest._id;
+        return this.isSuccessfulUpdate(result, guest._id);
     } catch (error) {
       console.error('Error updating guest response:', error);
       return false;
     }
+  }
+
+    private isSuccessfulUpdate(result: any, expectedId?: number): boolean {
+      if (!result) return false;
+
+      if (Array.isArray(result)) {
+        return result.some((item) => this.isSuccessfulUpdate(item, expectedId));
+      }
+
+      // Successful response can be either the updated row object or an object with success property
+      if (typeof result === 'object') {
+        if (typeof result.success === 'boolean') {
+          return result.success;
+        }
+
+        if (typeof result._id !== 'undefined' && typeof expectedId !== 'undefined') {
+          return Number(result._id) === Number(expectedId);
+        }
+
+        if (typeof result.id !== 'undefined' && typeof expectedId !== 'undefined') {
+          return Number(result.id) === Number(expectedId);
+        }
+      }
+
+      return true;
+    }
+
+  private transformGuest(data: any): Guest {
+    const normalizedId = data?._id ? Number(data._id) : undefined;
+    const attendance: Guest['Kehadiran'] = data?.Kehadiran === 'hadir'
+      ? 'hadir'
+      : data?.Kehadiran === 'tidak'
+        ? 'tidak'
+        : 'pending';
+
+    return {
+      _id: normalizedId,
+      No: data?.No ? Number(data.No) : 0,
+      Nama: data?.Nama ?? '',
+      Kehadiran: attendance,
+      Ucapan: typeof data?.Ucapan === 'string' ? data.Ucapan : undefined,
+    };
   }
 
   // Generate unique invitation link for a guest

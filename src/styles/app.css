@@ -2713,11 +2713,11 @@ img {
 }
 
 .wish-button:hover, .rsvp-submit-button:hover, .submit-wish-button:hover {
-  background: linear-gradient(135deg, var(--color-emerald), var(--color-sage));
+  background: linear-gradient(135deg, var(--color-metallic), var(--color-gold));
   transform: translateY(-3px);
-  box-shadow:
+  /* box-shadow:
     0 12px 24px rgba(4, 126, 59, 0.4),
-    0 6px 12px rgba(4, 126, 59, 0.3);
+    0 6px 12px rgba(4, 126, 59, 0.3); */
 }
 
 .wish-button:hover::before, .rsvp-submit-button:hover::before, .submit-wish-button:hover::before {

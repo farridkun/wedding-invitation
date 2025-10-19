@@ -40,13 +40,20 @@ const Wishes = ({ guest }: WishesProps) => {
 
     setIsSubmitting(true);
 
-    const success = await sheetsService.updateGuestResponse(guest.Nama, attendance, newWish.trim());
-    if (success) {
-      loadWishes();
-      setNewWish('');
-      setCurrentPage(1);
+    try {
+      const success = await sheetsService.updateGuestResponse(guest.Nama, attendance, newWish.trim());
+      if (success) {
+        await loadWishes();
+        setNewWish('');
+        setCurrentPage(1);
+      } else {
+        console.error('Failed to submit wish: updateGuestResponse returned false');
+      }
+    } catch (error) {
+      console.error('Failed to submit wish:', error);
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   // Calculate pagination
