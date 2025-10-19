@@ -13,25 +13,41 @@ interface IntroProps {
 const Intro = ({ onOpen, guest }: IntroProps) => {
   const [isSlidingUp, setIsSlidingUp] = useState(false);
 
-  const handleOpen = () => {
-    // Start slide up animation
-    setIsSlidingUp(true);
-    
-    // Play background sound
-    const audio = new Audio(backgroundSound);
-    audio.loop = true;
-    audio.volume = 0.3;
-    audio.play().catch(error => {
-      console.error('Error playing background sound:', error);
-    });
+  const handleOpen = async () => {
+    try {
+      // Start slide up animation
+      setIsSlidingUp(true);
 
-    // Call onOpen after animation completes
-    setTimeout(() => {
-      onOpen();
-    }, 800); // Match the transition duration
-  };
+      // Try to play background sound (handle mobile restrictions)
+      try {
+        const audio = new Audio(backgroundSound);
+        audio.loop = true;
+        audio.volume = 0.3;
+        await audio.play();
+        // Store audio reference if needed for later control
+        (window as any).weddingAudio = audio;
+      } catch (audioError) {
+        console.warn('Audio autoplay blocked by browser:', audioError);
+        // Audio will be handled later by user interaction if needed
+      }
 
-  return (
+      // Call onOpen after a shorter delay to avoid conflicts with AnimatePresence
+      setTimeout(() => {
+        try {
+          onOpen();
+        } catch (error) {
+          console.error('Error opening invitation:', error);
+          // Fallback: force open if there's an error
+          onOpen();
+        }
+      }, 600); // Reduced from 800ms to avoid conflicts
+    } catch (error) {
+      console.error('Error in handleOpen:', error);
+      // Fallback: still try to open
+      setIsSlidingUp(true);
+      setTimeout(() => onOpen(), 600);
+    }
+  };  return (
     <div className={`intro-modern ${isSlidingUp ? 'slide-up' : ''}`}>
       {/* Background Overlay */}
       <div className="intro-image-overlay"></div>

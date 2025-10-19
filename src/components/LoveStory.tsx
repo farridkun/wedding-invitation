@@ -8,8 +8,7 @@ const LoveStory = () => {
       backgroundImage: `url(${bgLoveStory})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed'
+      backgroundRepeat: 'no-repeat'
     }}>
       <Parallax speed={-10}>
         <div className="story-container">

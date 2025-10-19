@@ -30,7 +30,7 @@ const BrideGroomIntro = () => {
           className="bride-groom-quote"
         >
           <blockquote>
-            Pernikahan adalah tanda kebesaran Allah untuk menciptakan ketentraman, cinta, dan kasih sayang antara suami dan istri, yang menjadi dasar bagi kehidupan yang harmonis dan kebahagiaan rumah tangga. 
+            Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.
           </blockquote>
           <cite>- QS Ar-Rum ayat 21 -</cite>
         </motion.div>

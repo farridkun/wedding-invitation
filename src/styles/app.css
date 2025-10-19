@@ -60,7 +60,7 @@ img {
   background-position: center;
   overflow: hidden;
   padding: 3rem 0;
-  transition: transform 0.8s ease-in-out;
+  transition: transform 0.6s ease-in-out;
 }
 
 .intro-modern.slide-up {
@@ -1623,6 +1623,14 @@ img {
   position: relative;
   z-index: 2;
   overflow: hidden;
+  background-attachment: fixed;
+}
+
+/* Mobile Safari doesn't support background-attachment: fixed properly */
+@media (max-width: 768px) {
+  .lovestory {
+    background-attachment: scroll;
+  }
 }
 
 /* .lovestory::before {

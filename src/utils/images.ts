@@ -54,7 +54,7 @@ Object.entries(groomModules).forEach(([path, url]) => {
 
 // Process moments images
 Object.entries(momentsModules).forEach(([path, url]) => {
-  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg)$/i, '') || '';
+  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg|png)$/i, '') || '';
   momentsImage[filename] = url as string;
 });
 
