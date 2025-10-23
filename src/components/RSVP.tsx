@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
 import { sheetsService } from '../services/googleSheets';
 import type { Guest } from '../services/googleSheets';
 import { FaUser, FaCalendarCheck, FaEnvelope, FaPaperPlane, FaHeart, FaCheckCircle } from 'react-icons/fa';
+import ParallaxSafe from './ParallaxSafe';
 
 interface RSVPProps {
   guest: Guest | null;
@@ -120,7 +120,7 @@ const RSVP = ({ guest }: RSVPProps) => {
 
   return (
     <section id="rsvp" className="rsvp">
-      <Parallax speed={-15}>
+      <ParallaxSafe speed={-15}>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -279,7 +279,7 @@ const RSVP = ({ guest }: RSVPProps) => {
             )}
           </motion.div>
         </motion.div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };

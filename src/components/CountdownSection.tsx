@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import Countdown from './Countdown';
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { countDownImages } from '../utils/images';
 import ImageSlider from './ImageSlider';
 
@@ -22,7 +22,7 @@ const CountdownSection = () => {
         </div>
       </div>
       <div className="countdown-content">
-        <Parallax speed={-5}>
+        <ParallaxSafe speed={-5}>
           <div className="countdown-container">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -39,7 +39,7 @@ const CountdownSection = () => {
               </button>
             </motion.div>
           </div>
-        </Parallax>
+        </ParallaxSafe>
       </div>
     </section>
   );

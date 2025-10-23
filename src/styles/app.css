@@ -2195,7 +2195,7 @@ img {
 .no-wishes-icon {
   width: 70px;
   height: 70px;
-  background: linear-gradient(135deg, var(--color-metallic), var(--color-sage));
+  background: linear-gradient(135deg, var(--color-metallic), var(--color-gold));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -4002,7 +4002,7 @@ img {
   /* border-radius: 20px; */
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(27, 60, 83, 0.15);
-  background: linear-gradient(135deg, rgba(249, 243, 239, 0.1), rgba(69, 104, 130, 0.05));
+  /* background: linear-gradient(135deg, rgba(249, 243, 239, 0.1), rgba(69, 104, 130, 0.05)); */
 }
 
 .slider-viewport {

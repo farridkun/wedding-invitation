@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import { momentsImages } from '../utils/images';
+import { isIOSDevice } from '../utils/device';
 
 const OurMoments = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -13,6 +14,21 @@ const OurMoments = () => {
     containScroll: 'keepSnaps',
     dragFree: true,
   });
+
+  const isIOS = useMemo(() => isIOSDevice(), []);
+
+  const sectionBackgroundStyle = useMemo(() => ({
+    background: `
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.01) 75%),
+        #f8f8f8
+      `,
+    backgroundSize: '20px 20px, 30px 30px, 40px 40px, 20px 20px, 20px 20px',
+    backgroundAttachment: isIOS ? 'scroll' : 'fixed'
+  }), [isIOS]);
 
   // Autoplay functionality with pause on hover
   useEffect(() => {
@@ -66,18 +82,11 @@ const OurMoments = () => {
   }, [emblaMainApi, onSelect]);
 
   return (
-    <section id="our-moments" className="our-moments" style={{
-      background: `
-        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
-        linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
-        linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.01) 75%),
-        #f8f8f8
-      `,
-      backgroundSize: '20px 20px, 30px 30px, 40px 40px, 20px 20px, 20px 20px',
-      backgroundAttachment: 'fixed'
-    }}>
+    <section
+      id="our-moments"
+      className="our-moments"
+      style={sectionBackgroundStyle}
+    >
       <div className="our-moments-container">
         {/* Section Header */}
         <motion.div

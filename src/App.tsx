@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { AnimatePresence, motion } from 'framer-motion';
 import Intro from './components/Intro';
@@ -9,6 +9,7 @@ import AdminGuestLinks from './pages/AdminGuestLinks';
 import { sheetsService } from './services/googleSheets';
 import type { Guest } from './services/googleSheets';
 import avniDeaLogo from './assets/avni-dea-logo.png';
+import { isIOSDevice } from './utils/device';
 import './styles/app.css';
 
 // Lazy load heavy components for better performance
@@ -75,6 +76,9 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [guest, setGuest] = useState<Guest | null>(null);
   const [loading, setLoading] = useState(true);
+  
+  // Detect iOS devices to disable ParallaxProvider
+  const isIOS = useMemo(() => isIOSDevice(), []);
 
   // Check if accessing admin page
   const isAdminPage = window.location.pathname === '/admin-secret-links' || 
@@ -145,62 +149,63 @@ function App() {
     );
   }
 
-  return (
-    <ParallaxProvider>
-      <AnimatePresence mode="wait">
-        {!isOpen ? (
-          <motion.div
-            key="intro"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-          >
-            <Intro onOpen={handleOpen} guest={guest} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="main"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="app"
-          >
-            <Hero guest={guest} />
-            <Suspense fallback={<LoadingSpinner />}>
-              <BrideGroomIntro />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <BrideGroom />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <WeddingEvents />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <CountdownSection />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <LoveStory />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <OurMoments />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <WeddingGift />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <Wishes guest={guest} />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <Footer />
-            </Suspense>
-            <ScrollButton />
-            {/* <NavigatorMenu /> */}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </ParallaxProvider>
+  const appContent = (
+    <AnimatePresence mode="wait">
+      {!isOpen ? (
+        <motion.div
+          key="intro"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
+          <Intro onOpen={handleOpen} guest={guest} />
+        </motion.div>
+      ) : (
+        <motion.div
+          key="main"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          className="app"
+        >
+          <Hero guest={guest} />
+          <Suspense fallback={<LoadingSpinner />}>
+            <BrideGroomIntro />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <BrideGroom />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <WeddingEvents />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <CountdownSection />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <LoveStory />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <OurMoments />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <WeddingGift />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Wishes guest={guest} />
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Footer />
+          </Suspense>
+          <ScrollButton />
+          {/* <NavigatorMenu /> */}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
+
+  // Conditionally wrap with ParallaxProvider only on non-iOS devices
+  return isIOS ? appContent : <ParallaxProvider>{appContent}</ParallaxProvider>;
 }
 
 export default App;

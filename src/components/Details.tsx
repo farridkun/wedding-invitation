@@ -1,9 +1,9 @@
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 
 const AkadNikah = () => {
   return (
     <section id="akad" className="akad">
-      <Parallax translateX={[10, -10]}>
+      <ParallaxSafe translateX={[10, -10]}>
         <div className="akad-content">
           <h2>Akad Nikah</h2>
           <p><strong>Tanggal:</strong> 9 November 2025</p>
@@ -14,7 +14,7 @@ const AkadNikah = () => {
             Lihat di Google Maps
           </a>
         </div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://farrid.dev/sitemap.xml
+Sitemap: https://harimenikah.com/sitemap.xml

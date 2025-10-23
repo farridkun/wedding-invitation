@@ -1,4 +1,4 @@
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 import { FaHome, FaRing, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
 
@@ -42,7 +42,7 @@ const WeddingEvents = () => {
         <div className="bg-ornament ornament-6">❀</div> */}
       </div>
 
-      <Parallax speed={-10}>
+      <ParallaxSafe speed={-10}>
         <div className="events-container">
           {/* Section Header */}
           <motion.div
@@ -211,7 +211,7 @@ const WeddingEvents = () => {
             <div className="connector-line"></div>
           </motion.div>
         </div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };

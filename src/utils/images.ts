@@ -36,7 +36,7 @@ Object.entries(weddingPngModules).forEach(([path, url]) => {
 
 // Process slider hero images
 Object.entries(sliderHeroModules).forEach(([path, url]) => {
-  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg)$/i, '') || '';
+  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg|png)$/i, '') || '';
   sliderHeroImages[filename] = url as string;
 });
 

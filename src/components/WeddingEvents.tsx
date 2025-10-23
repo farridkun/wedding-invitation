@@ -1,4 +1,4 @@
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaMapLocationDot } from 'react-icons/fa6';
@@ -32,7 +32,7 @@ const WeddingEvents = () => {
         className="decorative-leaf leaf-right-bottom" 
       />
       
-      <Parallax speed={-10}>
+      <ParallaxSafe speed={-10}>
         <div className="events-container">
           {/* Section Header */}
           <motion.div
@@ -117,7 +117,7 @@ const WeddingEvents = () => {
             </a>
           </motion.div>
         </div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };

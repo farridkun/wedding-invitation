@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Parallax } from 'react-scroll-parallax';
+import { useState, useEffect, useMemo } from 'react';
+import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 import { sheetsService } from '../services/googleSheets';
 import type { Guest } from '../services/googleSheets';
 import { FaHeart, FaEnvelope, FaPaperPlane, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { isIOSDevice } from '../utils/device';
 
 interface WishesProps {
   guest: Guest | null;
@@ -17,6 +18,21 @@ const Wishes = ({ guest }: WishesProps) => {
   const [newWish, setNewWish] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const isIOS = useMemo(() => isIOSDevice(), []);
+
+  const sectionBackgroundStyle = useMemo(() => ({
+    background: `
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.01) 75%),
+        #f8f8f8
+      `,
+    backgroundSize: '20px 20px, 30px 30px, 40px 40px, 20px 20px, 20px 20px',
+    backgroundAttachment: isIOS ? 'scroll' : 'fixed'
+  }), [isIOS]);
 
   useEffect(() => {
     loadWishes();
@@ -68,23 +84,12 @@ const Wishes = ({ guest }: WishesProps) => {
   };
 
   return (
-    <section id="wishes" className="wishes" style={{
-      background: `
-        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
-        linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.02) 75%),
-        linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.01) 75%),
-        #f8f8f8
-      `,
-      backgroundSize: '20px 20px, 30px 30px, 40px 40px, 20px 20px, 20px 20px',
-      backgroundAttachment: 'fixed'
-    }}>
+    <section id="wishes" className="wishes" style={sectionBackgroundStyle}>
       {/* Elegant Background Elements */}
       <div className="wishes-bg-decoration">
       </div>
 
-      <Parallax speed={-10}>
+    <ParallaxSafe speed={-10}>
         <div className="wishes-container">
           {/* Section Header */}
           <motion.div
@@ -287,7 +292,7 @@ const Wishes = ({ guest }: WishesProps) => {
             <div className="connector-line"></div>
           </motion.div> */}
         </div>
-      </Parallax>
+    </ParallaxSafe>
     </section>
   );
 };

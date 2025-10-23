@@ -1,4 +1,4 @@
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 import bgLoveStory from '../assets/wedding/bg-love-story.jpg';
 
@@ -10,7 +10,7 @@ const LoveStory = () => {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
     }}>
-      <Parallax speed={-10}>
+      <ParallaxSafe speed={-10}>
         <div className="story-container">
           {/* Section Header */}
           <motion.div
@@ -89,7 +89,7 @@ const LoveStory = () => {
             </div>
           </motion.div>
         </div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };

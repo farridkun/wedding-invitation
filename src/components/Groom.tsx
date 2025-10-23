@@ -1,4 +1,4 @@
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 import ImageSlider from './ImageSlider';
 import { groomImages } from '../utils/images';
@@ -9,7 +9,7 @@ const Groom = () => {
 
   return (
     <section id="groom" className="groom">
-      <Parallax speed={-20}>
+      <ParallaxSafe speed={-20}>
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -46,7 +46,7 @@ const Groom = () => {
             </a>
           </motion.div>
         </motion.div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };

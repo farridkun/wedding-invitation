@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaCopy, FaCheck, FaLock, FaEye, FaEyeSlash, FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { sheetsService } from '../services/googleSheets';
 import type { Guest } from '../services/googleSheets';
+import { isIOSDevice } from '../utils/device';
 import '../styles/admin.css';
 
 const ITEMS_PER_PAGE = 10;
@@ -110,11 +111,36 @@ Kami yang berbahagia,
 Avni & Dea`;
 
     try {
-      await navigator.clipboard.writeText(message);
-      setCopiedIndex(index);
-      setTimeout(() => setCopiedIndex(null), 2000);
+      if (isIOSDevice()) {
+        // Fallback for iOS Safari - use textarea method
+        const textArea = document.createElement('textarea');
+        textArea.value = message;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        if (successful) {
+          setCopiedIndex(index);
+          setTimeout(() => setCopiedIndex(null), 2000);
+        } else {
+          throw new Error('Copy command failed');
+        }
+      } else {
+        // Modern Clipboard API for other devices
+        await navigator.clipboard.writeText(message);
+        setCopiedIndex(index);
+        setTimeout(() => setCopiedIndex(null), 2000);
+      }
     } catch (error) {
       console.error('Failed to copy:', error);
+      // Fallback: try to show the message in an alert for manual copying
+      alert(`Copy this message manually:\n\n${message}`);
     }
   };
 
@@ -143,11 +169,36 @@ Avni & Dea
       .join('\n');
     
     try {
-      await navigator.clipboard.writeText(allLinks);
-      setCopiedIndex(-1);
-      setTimeout(() => setCopiedIndex(null), 2000);
+      if (isIOSDevice()) {
+        // Fallback for iOS Safari - use textarea method
+        const textArea = document.createElement('textarea');
+        textArea.value = allLinks;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        if (successful) {
+          setCopiedIndex(-1);
+          setTimeout(() => setCopiedIndex(null), 2000);
+        } else {
+          throw new Error('Copy command failed');
+        }
+      } else {
+        // Modern Clipboard API for other devices
+        await navigator.clipboard.writeText(allLinks);
+        setCopiedIndex(-1);
+        setTimeout(() => setCopiedIndex(null), 2000);
+      }
     } catch (error) {
       console.error('Failed to copy all links:', error);
+      // Fallback: try to show the message in an alert for manual copying
+      alert(`Copy these links manually:\n\n${allLinks}`);
     }
   };
 

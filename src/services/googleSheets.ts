@@ -3,7 +3,8 @@
 // Documentation: https://spreadapi.roombelt.com/
 
 // Replace YOUR_SCRIPT_ID with your actual Google Apps Script deployment ID
-const SPREADAPI_SCRIPT_ID = 'AKfycbyfLiSxjGH-axb33T-QKOw-DBBAX2okUKZEdE545rCCyTedicW0tx7E3M56wNbH8uPTow'; // Get this from SpreadAPI setup
+const SPREADAPI_SCRIPT_ID = 'AKfycbyfVlTeTVoWCwlvNjVZ_-T2PokqItHHBowcy9fLXPI2tOGhvG-D4UXBSG7p2Mg_k3iG'; // Get this from SpreadAPI setup
+// const SPREADAPI_SCRIPT_ID = 'AKfycbyfLiSxjGH-axb33T-QKOw-DBBAX2okUKZEdE545rCCyTedicW0tx7E3M56wNbH8uPTow'; // Get this from SpreadAPI setup
 const SPREADAPI_BASE_URL = `https://script.google.com/macros/s/${SPREADAPI_SCRIPT_ID}/exec`;
 
 export interface Guest {

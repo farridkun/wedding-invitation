@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCreditCard, FaCopy, FaTimes } from 'react-icons/fa';
 import { IoIosGift } from 'react-icons/io';
@@ -16,7 +16,7 @@ const WeddingGift = () => {
 
   return (
     <section id="wedding-gift" className="wedding-gift">
-      <Parallax speed={-10}>
+      <ParallaxSafe speed={-10}>
         <div className="gift-container">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -106,7 +106,7 @@ const WeddingGift = () => {
             )}
           </AnimatePresence>
         </div>
-      </Parallax>
+      </ParallaxSafe>
 
       <AnimatePresence>
         {showQRModal && (

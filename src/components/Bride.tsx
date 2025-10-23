@@ -1,4 +1,4 @@
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 import ImageSlider from './ImageSlider';
 import { brideImages } from '../utils/images';
@@ -9,7 +9,7 @@ const Bride = () => {
 
   return (
     <section id="bride" className="bride">
-      <Parallax speed={30}>
+      <ParallaxSafe speed={30}>
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -46,7 +46,7 @@ const Bride = () => {
             </a>
           </motion.div>
         </motion.div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };

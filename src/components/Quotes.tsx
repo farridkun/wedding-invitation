@@ -1,10 +1,10 @@
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 
 const Quotes = () => {
   return (
     <section id="countdown-section" className="countdown-section">
-      <Parallax speed={20}>
+      <ParallaxSafe speed={20}>
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -16,7 +16,7 @@ const Quotes = () => {
           </blockquote>
           <cite>- QS Ar-Rum ayat 21</cite>
         </motion.div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import { Parallax } from 'react-scroll-parallax';
+import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 import { FaBuilding, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaRing } from 'react-icons/fa';
 
@@ -12,7 +12,7 @@ const Resepsi = () => {
       <div className="floating-decoration diamond decoration-4">◆</div>
       <div className="floating-decoration heart decoration-5">♥</div> */}
 
-      <Parallax speed={20}>
+      <ParallaxSafe speed={20}>
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ const Resepsi = () => {
             <cite>Hadits Riwayat Bukhari</cite>
           </motion.div>
         </motion.div>
-      </Parallax>
+      </ParallaxSafe>
     </section>
   );
 };
