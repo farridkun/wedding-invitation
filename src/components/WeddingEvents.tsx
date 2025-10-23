@@ -2,7 +2,7 @@ import { Parallax } from 'react-scroll-parallax';
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaMapLocationDot } from 'react-icons/fa6';
-import { GiLinkedRings } from 'react-icons/gi';
+// import { GiLinkedRings } from 'react-icons/gi';
 import { PiCheersFill } from 'react-icons/pi';
 import leafBackground1 from '../assets/wedding/leaf-background-1.png';
 import leafBackground2 from '../assets/wedding/leaf-background-2.png';
@@ -41,7 +41,7 @@ const WeddingEvents = () => {
             transition={{ duration: 0.8 }}
             className="events-header"
           >
-            <h2 className="events-title mb-2">Acara Pernikahan</h2>
+            <h2 className="events-title mb-2">Acara Syukuran</h2>
             <p style={{ fontFamily: 'Outfit' }}>Acara InsyaAllah akan dilaksanakan pada</p>
           </motion.div>
 
@@ -58,12 +58,12 @@ const WeddingEvents = () => {
                 <h2 className="mt-2 nautical-font">Minggu</h2>
               </div>
               <div className="event-content">
-                <h2 className="event-name" style={{ fontFamily: 'Outfit' }}>9 November 2025</h2>
+                <h2 className="event-name" style={{ fontFamily: 'Outfit' }}>2 November 2025</h2>
               </div>
             </div>
 
             {/* Akad Nikah */}
-            <div className="event-item">
+            {/* <div className="event-item">
               <div className="event-icon">
                 <GiLinkedRings
                   size={48}
@@ -73,7 +73,7 @@ const WeddingEvents = () => {
                 <h3 className="event-name">Akad Nikah</h3>
                 <p className="event-time" style={{ fontFamily: 'Outfit' }}>Pukul 08:00 - 10:00 WIB</p>
               </div>
-            </div>
+            </div> */}
 
             {/* Resepsi */}
             <div className="event-item">
@@ -81,20 +81,21 @@ const WeddingEvents = () => {
                 <PiCheersFill size={48} />
               </div>
               <div className="event-content">
-                <h3 className="event-name">Resepsi</h3>
-                <p className="event-time" style={{ fontFamily: 'Outfit' }}>Pukul 11:00 - 14:00 WIB</p>
+                <h3 className="event-name">Acara</h3>
+                <p className="event-time" style={{ fontFamily: 'Outfit' }}>Pukul 09:00 - Selesai</p>
               </div>
             </div>
 
             {/* Location */}
-            <div className="event-item">
+            <div className="event-item" style={{ marginBottom: '-20px' }}>
               <div className="event-icon">
                 <FaMapLocationDot size={48} />
               </div>
               <div className="event-content">
                 <h3 className="event-name">Bertempat di</h3>
-                <p className="event-location" style={{ fontFamily: 'Outfit' }}>PT Inti Persero - Jl. Moch. Toha No.77</p>
-                <p className="event-location-sub" style={{ fontFamily: 'Outfit' }}>Cigereleng, Kec. Regol, Kota Bandung</p>
+                <p className="event-location" style={{ fontFamily: 'Outfit' }}>Kediaman Calon Mempelai Pria</p>
+                <p className="event-location-sub" style={{ fontFamily: 'Outfit' }}>Kp. Pasir Lanjung RT/RW 004/002 Desa Jagabaya,</p>
+                <p className="event-location-sub" style={{ fontFamily: 'Outfit' }}>Kec. Cimaung, Kab. Bandung</p>
               </div>
             </div>
           </motion.div>
@@ -107,7 +108,7 @@ const WeddingEvents = () => {
             className="maps-button-container"
           >
             <a
-              href="https://maps.app.goo.gl/NRpg5bx1wUVaBSzN6"
+              href="https://maps.app.goo.gl/duqSnggFNdSh5xDv5"
               target="_blank"
               rel="noopener noreferrer"
               className="maps-button"

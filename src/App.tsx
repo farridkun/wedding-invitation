@@ -15,12 +15,12 @@ import './styles/app.css';
 const BrideGroomIntro = lazy(() => import('./components/BrideGroomIntro'));
 const BrideGroom = lazy(() => import('./components/BrideGroom'));
 const WeddingEvents = lazy(() => import('./components/WeddingEvents'));
-const LoveStory = lazy(() => import('./components/LoveStory'));
+// const LoveStory = lazy(() => import('./components/LoveStory'));
 const OurMoments = lazy(() => import('./components/OurMoments'));
 const CountdownSection = lazy(() => import('./components/CountdownSection'));
-const Wishes = lazy(() => import('./components/Wishes'));
+// const Wishes = lazy(() => import('./components/Wishes'));
 const Footer = lazy(() => import('./components/Footer'));
-const WeddingGift = lazy(() => import('./components/WeddingGift'));
+// const WeddingGift = lazy(() => import('./components/WeddingGift'));
 
 // Loading component for Suspense fallback
 const LoadingSpinner = () => {
@@ -84,11 +84,20 @@ function App() {
     const initializeGuest = async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const guestName = urlParams.get('guest');
+      const untukName = urlParams.get('untuk');
 
       // Add minimum 2-second loading delay
       const startTime = Date.now();
 
-      if (guestName) {
+      if (untukName) {
+        // Direct guest name from 'untuk' parameter - bypass spreadsheet
+        const decodedUntukName = decodeURIComponent(untukName);
+        setGuest({
+          No: 0,
+          Nama: decodedUntukName,
+          Kehadiran: 'pending'
+        });
+      } else if (guestName) {
         const decodedGuestName = decodeURIComponent(guestName);
         try {
           const guestData = await sheetsService.getGuestByName(decodedGuestName);
@@ -179,18 +188,18 @@ function App() {
             <Suspense fallback={<LoadingSpinner />}>
               <CountdownSection />
             </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
+            {/* <Suspense fallback={<LoadingSpinner />}>
               <LoveStory />
-            </Suspense>
+            </Suspense> */}
             <Suspense fallback={<LoadingSpinner />}>
               <OurMoments />
             </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
+            {/* <Suspense fallback={<LoadingSpinner />}>
               <WeddingGift />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
+            </Suspense> */}
+            {/* <Suspense fallback={<LoadingSpinner />}>
               <Wishes guest={guest} />
-            </Suspense>
+            </Suspense> */}
             <Suspense fallback={<LoadingSpinner />}>
               <Footer />
             </Suspense>

@@ -36,19 +36,19 @@ Object.entries(weddingPngModules).forEach(([path, url]) => {
 
 // Process slider hero images
 Object.entries(sliderHeroModules).forEach(([path, url]) => {
-  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg)$/i, '') || '';
+  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg|png)$/i, '') || '';
   sliderHeroImages[filename] = url as string;
 });
 
 // Process bride images
 Object.entries(brideModules).forEach(([path, url]) => {
-  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg)$/i, '') || '';
+  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg|png)$/i, '') || '';
   brideImage[filename] = url as string;
 });
 
 // Process groom images
 Object.entries(groomModules).forEach(([path, url]) => {
-  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg)$/i, '') || '';
+  const filename = path.split('/').pop()?.replace(/\.(JPEG|jpg|png)$/i, '') || '';
   groomImage[filename] = url as string;
 });
 

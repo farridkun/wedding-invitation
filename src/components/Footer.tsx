@@ -40,9 +40,9 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="footer-message"
-          style={{ fontFamily: 'Outfit' }}
+          style={{ fontFamily: 'Outfit', marginBottom: '12px' }}
         >
-          Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan do'a restunya untuk keberkahan pernikahan kami.
+          Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan do'a restunya untuk keberkahan menjelang pernikahan kami.
         </motion.p>
 
         <motion.p
@@ -61,7 +61,8 @@ const Footer = () => {
           transition={{ duration: 0.8, delay: 1 }}
           className="footer-names"
         >
-          <span>Avni & Dea</span>
+          <span style={{ marginBottom: '-12px', fontSize: '1.2rem' }}>Kel. Besar</span>
+          <span style={{ fontSize: '1.2rem' }}>Bpk. Agus Suratman</span>
         </motion.div>
       </motion.div>
     </footer>

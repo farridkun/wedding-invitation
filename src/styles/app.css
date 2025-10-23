@@ -4912,6 +4912,7 @@ img {
 
 .footer-names {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
@@ -4971,7 +4972,7 @@ img {
 
   .footer-thanks {
     font-size: 0.95rem;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
   }
 
   .footer-names {

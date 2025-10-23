@@ -68,7 +68,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           transition={{ duration: 0.6, delay: 0.3 }}
           style={{ fontFamily: 'Outfit' }}
         >
-          WEDDING INVITATION
+          SYUKURAN MENJELANG PERNIKAHAN
         </motion.p>
 
         {/* Couple Names */}
@@ -78,7 +78,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          Avni & Dea
+          Dea & Avni
         </motion.h1>
 
         {/* Divider */}
@@ -102,7 +102,7 @@ const Intro = ({ onOpen, guest }: IntroProps) => {
           transition={{ duration: 0.6, delay: 0.9 }}
           style={{ fontFamily: 'Outfit' }}
         >
-          09 . 11 . 2025
+          02 . 11 . 2025
         </motion.p>
       </motion.div>
 
