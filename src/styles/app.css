@@ -2254,6 +2254,7 @@ img {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
+  color: var(--color-offwhite);
 }
 
 .pagination-info {

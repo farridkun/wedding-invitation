@@ -15,6 +15,13 @@ export interface Guest {
   Ucapan?: string;
 }
 
+export interface Ucapan {
+  _id?: number;
+  No: number;
+  Nama: string;
+  Ucapan: string;
+}
+
 // SpreadAPI request/response interfaces
 export interface SpreadAPIRequest {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -166,6 +173,71 @@ class GoogleSheetsService {
     }
   }
 
+  // Get all ucapan from the Ucapan sheet
+  async getAllUcapan(): Promise<Ucapan[]> {
+    try {
+      const rows = await this.getSheetData('Ucapan');
+      return rows.map((row) => this.transformUcapan(row));
+    } catch (error) {
+      console.error('Error fetching ucapan:', error);
+      return [];
+    }
+  }
+
+  // Add new ucapan to Ucapan sheet
+  async addUcapan(nama: string, ucapan: string): Promise<boolean> {
+    try {
+      // Get current ucapan count to generate next No
+      const existingUcapan = await this.getAllUcapan();
+      const nextNo = existingUcapan.length + 1;
+
+      // Add new row to Ucapan sheet
+      const result = await this.makeRequest({
+        method: 'POST',
+        sheet: 'Ucapan',
+        payload: {
+          No: nextNo,
+          Nama: nama,
+          Ucapan: ucapan,
+        },
+      });
+
+      return !!result;
+    } catch (error) {
+      console.error('Error adding ucapan:', error);
+      return false;
+    }
+  }
+
+  // Update guest attendance only (for guest link users)
+  async updateGuestAttendanceOnly(guestName: string, status: 'hadir' | 'tidak'): Promise<boolean> {
+    try {
+      // First, get the guest to find their _id (row number)
+      const guest = await this.getGuestByName(guestName);
+      
+      if (!guest || !guest._id) {
+        console.error('Guest not found or missing _id');
+        return false;
+      }
+
+      // Update using SpreadAPI's PUT method with _id
+      const result = await this.makeRequest({
+        method: 'PUT',
+        sheet: 'Guests',
+        payload: {
+          _id: guest._id,
+          id: guest._id,
+          Kehadiran: status,
+        },
+      });
+
+      return this.isSuccessfulUpdate(result, guest._id);
+    } catch (error) {
+      console.error('Error updating guest attendance:', error);
+      return false;
+    }
+  }
+
     private isSuccessfulUpdate(result: any, expectedId?: number): boolean {
       if (!result) return false;
 
@@ -205,6 +277,15 @@ class GoogleSheetsService {
       Nama: data?.Nama ?? '',
       Kehadiran: attendance,
       Ucapan: typeof data?.Ucapan === 'string' ? data.Ucapan : undefined,
+    };
+  }
+
+  private transformUcapan(data: any): Ucapan {
+    return {
+      _id: data?._id ? Number(data._id) : undefined,
+      No: data?.No ? Number(data.No) : 0,
+      Nama: data?.Nama ?? '',
+      Ucapan: data?.Ucapan ?? '',
     };
   }
 

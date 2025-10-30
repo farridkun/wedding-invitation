@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import ParallaxSafe from './ParallaxSafe';
 import { motion } from 'framer-motion';
 import { sheetsService } from '../services/googleSheets';
-import type { Guest } from '../services/googleSheets';
+import type { Guest, Ucapan } from '../services/googleSheets';
 import { FaHeart, FaEnvelope, FaPaperPlane, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { isIOSDevice } from '../utils/device';
 
@@ -13,9 +13,10 @@ interface WishesProps {
 const WISHES_PER_PAGE = 5;
 
 const Wishes = ({ guest }: WishesProps) => {
-  const [wishes, setWishes] = useState<Guest[]>([]);
+  const [wishes, setWishes] = useState<Ucapan[]>([]);
   const [attendance, setAttendance] = useState<'hadir' | 'tidak'>('hadir');
   const [newWish, setNewWish] = useState('');
+  const [senderName, setSenderName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,6 +38,8 @@ const Wishes = ({ guest }: WishesProps) => {
   useEffect(() => {
     loadWishes();
     if (guest) {
+      // Pre-fill the sender name with guest name, but allow editing
+      setSenderName(guest.Nama);
       if (guest.Kehadiran === 'hadir') {
         setAttendance('hadir');
       } else if (guest.Kehadiran === 'tidak') {
@@ -46,27 +49,51 @@ const Wishes = ({ guest }: WishesProps) => {
   }, [guest]);
 
   const loadWishes = async () => {
-    const allGuests = await sheetsService.getAllGuests();
-    setWishes(allGuests.filter(g => g.Ucapan && g.Ucapan.trim()));
+    const allUcapan = await sheetsService.getAllUcapan();
+    setWishes(allUcapan);
   };
 
   const handleSubmitResponse = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newWish.trim() || !guest) return;
+    if (!newWish.trim() || !senderName.trim()) {
+      alert('Mohon isi nama dan ucapan Anda');
+      return;
+    }
 
     setIsSubmitting(true);
 
     try {
-      const success = await sheetsService.updateGuestResponse(guest.Nama, attendance, newWish.trim());
+      let success = false;
+
+      if (guest) {
+        // If guest from link, update their attendance in Guests sheet
+        success = await sheetsService.updateGuestAttendanceOnly(guest.Nama, attendance);
+        
+        if (!success) {
+          alert('Gagal mengupdate kehadiran. Silakan coba lagi.');
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
+      // Add ucapan to Ucapan sheet with sender's name (editable)
+      success = await sheetsService.addUcapan(senderName.trim(), newWish.trim());
+
       if (success) {
         await loadWishes();
         setNewWish('');
+        if (!guest) {
+          // Only clear name if not a guest (guests might want to keep their name)
+          setSenderName('');
+        }
         setCurrentPage(1);
       } else {
-        console.error('Failed to submit wish: updateGuestResponse returned false');
+        console.error('Failed to submit wish');
+        alert('Gagal mengirim ucapan. Silakan coba lagi.');
       }
     } catch (error) {
       console.error('Failed to submit wish:', error);
+      alert('Terjadi kesalahan. Silakan coba lagi.');
     } finally {
       setIsSubmitting(false);
     }
@@ -120,16 +147,16 @@ const Wishes = ({ guest }: WishesProps) => {
               RSVP & Ucapan
             </motion.h2>
 
-            {/* <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              whileInView={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="header-divider"
-            >
-              <div className="divider-line"></div>
-              <FaEnvelope className="divider-heart" />
-              <div className="divider-line"></div>
-            </motion.div> */}
+          {/* <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="header-divider"
+          >
+            <div className="divider-line"></div>
+            <FaEnvelope className="divider-heart" />
+            <div className="divider-line"></div>
+          </motion.div> */}
           </motion.div>
 
           {/* <motion.p
@@ -141,18 +168,28 @@ const Wishes = ({ guest }: WishesProps) => {
             Berikan ucapan dan doa terbaik untuk Avni & Dea
           </motion.p> */}
 
-          {guest && (
-            <motion.form
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              onSubmit={handleSubmitResponse}
-              className="wish-form"
-            >
-              <div className="form-group" style={{ marginBottom: '10px' }}>
-                <label style={{ fontFamily: 'Outfit', fontWeight: 400 }}>Dari</label>
-                <strong>{guest.Nama}</strong>
-              </div>
+          <motion.form
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            onSubmit={handleSubmitResponse}
+            className="wish-form"
+          >
+            {/* Name field - always editable */}
+            <div className="form-group" style={{ marginBottom: '10px' }}>
+              <label style={{ fontFamily: 'Outfit', fontWeight: 400 }}>Nama *</label>
+              <input
+                type="text"
+                value={senderName}
+                onChange={(e) => setSenderName(e.target.value)}
+                placeholder="Masukkan nama..."
+                required
+                style={{ fontFamily: 'Outfit' }}
+              />
+            </div>
+
+            {/* Attendance options - only for guests with link */}
+            {guest && (
               <div className="form-group">
                 <label style={{ fontFamily: 'Outfit', fontWeight: 400 }}>Konfirmasi Kehadiran:</label>
                 <div className="attendance-options">
@@ -180,28 +217,30 @@ const Wishes = ({ guest }: WishesProps) => {
                   </label>
                 </div>
               </div>
-              <div className="form-group">
-                <textarea
-                  value={newWish}
-                  onChange={(e) => setNewWish(e.target.value)}
-                  placeholder="Tulis ucapan dan doa Anda..."
-                  required
-                  rows={4}
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="submit-wish-button"
-                style={{ fontFamily: 'Outfit' }}
-              >
-                <FaPaperPlane className="button-icon" />
-                {isSubmitting ? 'Mengirim...' : 'Kirim Ucapan'}
-              </button>
-            </motion.form>
-          )}
+            )}
 
-          <motion.div
+            {/* Message field */}
+            <div className="form-group">
+              <label style={{ fontFamily: 'Outfit', fontWeight: 400 }}>Ucapan & Doa *</label>
+              <textarea
+                value={newWish}
+                onChange={(e) => setNewWish(e.target.value)}
+                placeholder="Tulis ucapan dan doa..."
+                required
+                rows={4}
+                style={{ fontFamily: 'Outfit' }}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="submit-wish-button"
+              style={{ fontFamily: 'Outfit' }}
+            >
+              <FaPaperPlane className="button-icon" />
+              {isSubmitting ? 'Mengirim...' : 'Kirim Ucapan'}
+            </button>
+          </motion.form>          <motion.div
             className="wishes-list"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -225,7 +264,7 @@ const Wishes = ({ guest }: WishesProps) => {
                 <div className="wishes-list-simple">
                   {currentWishes.map((wish, index) => (
                     <motion.div
-                      key={wish.No}
+                      key={wish._id || `wish-${startIndex + index}`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -235,7 +274,7 @@ const Wishes = ({ guest }: WishesProps) => {
                         <div className="wish-author-simple">
                           <FaHeart className="wish-heart-icon" />
                           <strong>{wish.Nama}</strong>
-                          <span className="wish-number-simple" style={{ fontFamily: 'Outfit' }}>#{wish.No}</span>
+                          <span className="wish-number-simple" style={{ fontFamily: 'Outfit' }}>#{index + 1}</span>
                         </div>
                         <p className="wish-message-simple" style={{ fontFamily: 'Outfit' }}>{wish.Ucapan}</p>
                       </div>
